@@ -9,6 +9,7 @@ import Cookies from "./utils/Cookies";
 import FontsLoader from "./utils/GoogleFontLoader";
 import { MainTheme } from "./utils/MaterialUiTheme";
 const Guest = loadable(() => import('./guest/Guest'));
+const Main = loadable(() => import('./main/Main'));
 
 function App() {
   const [connected, setConnected] = useState(Cookies.get("acessTokenOowlish") != null);
@@ -22,8 +23,9 @@ function App() {
         <FontsLoader />
         <CssBaseline />
         <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
-          <Guest login={(user) => {
-          }} />
+          {/* <Guest login={(user) => {
+          }} /> */}
+          <Main logout={() => { }} />
         </SnackbarProvider>
       </MuiThemeProvider>
     </>

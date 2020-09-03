@@ -9,10 +9,6 @@ export type PropsGuest = {
     login: (user: User) => void
 };
 
-export type Auth = {
-    username: string,
-    password: string
-}
 
 
 function LoginCard(props: PropsGuest) {
