@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import loadable from '@loadable/component';
+import { MuiThemeProvider } from "@material-ui/core";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { SnackbarProvider } from 'notistack';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import { User } from "./types/Types";
+import Cookies from "./utils/Cookies";
+import FontsLoader from "./utils/GoogleFontLoader";
+import { MainTheme } from "./utils/MaterialUiTheme";
+const Guest = loadable(() => import('./guest/Guest'));
 
 function App() {
+  const [connected, setConnected] = useState(Cookies.get("acessTokenOowlish") != null);
+  const [userInfos, setUserInfos] = useState<User | null>(null);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    // <ComponentContextProvider value={data}>
+    <>
+      <MuiThemeProvider theme={MainTheme}>
+        <FontsLoader />
+        <CssBaseline />
+        <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
+          <Guest login={(user) => {
+          }} />
+        </SnackbarProvider>
+      </MuiThemeProvider>
+    </>
+  )
 }
 
-export default App;
+export default React.memo(App)
+ReactDOM.render(<App />, document.getElementById("root"))
