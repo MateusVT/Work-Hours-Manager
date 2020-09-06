@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Grid, Toolbar, Avatar, Typography, IconButton } from '@material-ui/core';
 import { AccountCircle, ExitToApp } from '@material-ui/icons';
-// import { ComponentContext } from './ComponentContext';
+// import Image from 'material-ui-image'
+import Image from '../utils/Image';
 
 
 export type PropsInternalPageHeader = {
@@ -16,10 +17,16 @@ function InternalPageHeader(props: PropsInternalPageHeader) {
 
             <Grid container style={{ width: "100%" }}>
                 <Grid item xs={6} style={{ width: "100%", display: "flex", alignItems: "center", padding: "2%", justifyContent: "flex-start" }} >
-                    <AccountCircle style={{ color: "black", marginRight: "5px" }} fontSize="large" />
+                    <Image
+                        src="imgs/logo-text.png"
+                        width="50%"
+                        height="50%"
+                    />
+
+                    {/* <AccountCircle style={{ color: "black", marginRight: "5px" }} fontSize="large" />
                     <Typography style={{ color: "black" }} variant="h6">
-                        João da Silva
-                    </Typography>
+                        Mateus Vieira Torres    
+                    </Typography> */}
                 </Grid>
                 <Grid item xs={6} style={{ width: "100%", display: "flex", alignItems: "center", padding: "2%", justifyContent: "flex-end" }} >
                     <IconButton

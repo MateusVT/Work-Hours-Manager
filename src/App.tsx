@@ -16,6 +16,22 @@ function App() {
   const [userInfos, setUserInfos] = useState<User | null>(null);
 
 
+  const handleUponLogin = async (user: User, keepConnected: boolean) => {
+    Cookies.set("acessTokenOowlish", user.accessToken, !keepConnected)
+    if (user) {
+      // context.userInfos = user
+      setConnected(true)
+    }
+  }
+
+  const handleUponLogout = () => {
+    Cookies.set("acessTokenOowlish", null)
+    window.location.reload()
+    setConnected(false)
+  }
+
+
+
   return (
     // <ComponentContextProvider value={data}>
     <>
@@ -23,9 +39,13 @@ function App() {
         <FontsLoader />
         <CssBaseline />
         <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
+          <Main logout={handleUponLogout} />
           {/* <Guest login={(user) => {
+            handleUponLogin(user, true)
           }} /> */}
-          <Main logout={() => { }} />
+          {/* {connected ? <Main logout={handleUponLogout} /> : <Guest login={(user) => {
+            handleUponLogin(user, true)
+          }} />} */}
         </SnackbarProvider>
       </MuiThemeProvider>
     </>

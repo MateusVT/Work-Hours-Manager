@@ -55,7 +55,7 @@ function CustomInput(props: Props) {
 
     function onChangeInternal(ev: React.ChangeEvent<HTMLInputElement>) {
         const { maxLength } = props
-        const val = ev.target.value.toUpperCase()
+        const val = ev.target.value
         const attribute = ev.target.name
         if (maxLength) {
             if (val.length <= maxLength) {

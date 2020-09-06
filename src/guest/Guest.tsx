@@ -19,19 +19,15 @@ function LoginCard(props: PropsGuest) {
     function handleLogin() {
 
         if (username.trim().length > 0 && password.trim().length > 0) {
-            Http.post({
-                path: "/auth/signin",
-                body: {
-                    nmLogin: username,
-                    pwLogin: password
-                },
+            Http.get({
+                path: `/users?username=${username}&password=${password}`,
                 onError: (error: string) => {
                     console.log(error)
                     enqueueSnackbar('Invalid username', { variant: 'error' })
                 },
                 onSuccess: (user: User) => {
                     props.login(user)
-                    enqueueSnackbar('Welcome' + user.username + '!', { variant: 'success' })
+                    enqueueSnackbar('Welcome' + user.name + '!', { variant: 'success' })
                 }
             })
         }
@@ -141,8 +137,7 @@ const Guest = (props: PropsGuest) => {
             <div style={{ width: "100%", height: "100%", overflowY: "hidden" }}>
 
                 <div style={{
-                    background: "url(https://www.oowlish.com/wp-content/uploads/2016/09/man_macbook.jpg) no-repeat center ",
-                    // background: "url(src/assets/imgs/guest-background.jpg) no-repeat center",
+                    background: "url(/imgs/guest-background.jpg) no-repeat center ",
                     backgroundSize: "100% 100%", width: "100%", height: "100%"
                 }}>
                     <TopLetter />
@@ -150,9 +145,7 @@ const Guest = (props: PropsGuest) => {
                         <Grid item lg={12} style={{ justifyContent: "center", alignItems: "center", display: "flex", height: "100%", width: "50%" }} >
                             <LoginCard login={props.login} />
                         </Grid>
-
                     </Grid>
-
                 </div>
 
             </div>

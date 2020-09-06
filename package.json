@@ -14,8 +14,10 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "json-server": "^0.16.1",
     "loadable": "^1.0.0",
     "material-ui": "^0.20.2",
+    "material-ui-image": "^3.2.3",
     "moment": "^2.27.0",
     "notistack": "^1.0.0",
     "react": "^16.13.1",
@@ -26,6 +28,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "npx json-server --watch db.json --port 8000",
+    "start-server": "npm-run-all --parallel server start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -44,5 +48,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "npm-run-all": "^4.1.5"
   }
 }
