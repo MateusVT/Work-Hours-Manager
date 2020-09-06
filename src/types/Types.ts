@@ -14,10 +14,11 @@ export type User = {
 }
 
 export type ActivityRecord = {
+    id: number
+    userId: number
+    date: string
+    time: string
     activityType: ActivityTypes
-    startedAt: string
-    endedAt: string
-    duration: string
 }
 
 export type ActivityTypes = "Arriving" | "Exiting" | "Lunch Break"

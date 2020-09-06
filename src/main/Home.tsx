@@ -22,8 +22,8 @@ export type PropsHome = {
 };
 
 function UserInfo() {
-    const context = useContext(ComponentContext)
 
+    const context = useContext(ComponentContext)
     return <Grid container style={{ width: "100%" }} >
         <Grid item xs={4}>
             <Avatar alt="Oowlish User" style={{ width: "100px", height: "100px", boxShadow: "0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)" }} src={UserImg} />
@@ -90,14 +90,14 @@ function Actions() {
 
 function ActivityTable() {
 
+    const context = useContext(ComponentContext)
+    if (!context.workRecords) return <></>
     const columns = [
         { title: 'Activity', field: 'activityType' },
-        { title: 'Started At', field: 'startedAt' },
-        { title: 'Finished At', field: 'endedAt' },
-        { title: 'Duration', field: 'duration' }
+        { title: 'Date', field: 'date' },
+        { title: 'Time', field: 'time' }
     ]
-
-    return <Table title={"Today's Records"} pageSize={10} columns={columns} items={[]} />
+    return <Table title={"Today's Records"} pageSize={10} columns={columns} items={context.workRecords} />
 }
 
 function DailyDoughnutChart() {

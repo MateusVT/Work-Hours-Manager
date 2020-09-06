@@ -18,15 +18,16 @@ function App() {
   const [data, setData] = useState<Partial<ComponentContextData>>({})
 
 
-  const handleUponLogin = async (user: User, keepConnected: boolean) => {
+  function handleUponLogin(user: User, keepConnected: boolean) {
+
+
     Cookies.set("acessTokenOowlish", user.accessToken, !keepConnected)
     if (user) {
-      setData({ user: user })
       setConnected(true)
     }
   }
 
-  const handleUponLogout = () => {
+  function handleUponLogout() {
     Cookies.set("acessTokenOowlish", null)
     window.location.reload()
     setConnected(false)
@@ -34,23 +35,23 @@ function App() {
 
   return (
     <>
-      <MuiThemeProvider theme={MainTheme}>
-        <FontsLoader />
-        <CssBaseline />
-        <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
-          {/* <Home logout={handleUponLogout} /> */}
-          {/* <Guest login={(user) => {
+      <ComponentContextProvider value={data}>
+        <MuiThemeProvider theme={MainTheme}>
+          <FontsLoader />
+          <CssBaseline />
+          <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
+            {/* <Home logout={handleUponLogout} /> */}
+            {/* <Guest login={(user) => {
             handleUponLogin(user, true)
           }} /> */}
-          {connected ?
-            <ComponentContextProvider value={data}>
+            {connected ?
               <Home logout={handleUponLogout} />
-            </ComponentContextProvider>
-            : <Guest login={(user) => {
-              handleUponLogin(user, true)
-            }} />}
-        </SnackbarProvider>
-      </MuiThemeProvider>
+              : <Guest login={(user) => {
+                handleUponLogin(user, true)
+              }} />}
+          </SnackbarProvider>
+        </MuiThemeProvider>
+      </ComponentContextProvider>
     </>
   )
 }
