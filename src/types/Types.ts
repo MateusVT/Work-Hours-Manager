@@ -8,6 +8,7 @@ export type User = {
     username: string
     password: string
     name: string
+    occupation: string
     workload: string //in minutes = 8 hours
     accessToken: string
 }

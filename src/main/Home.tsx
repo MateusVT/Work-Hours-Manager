@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import InternalPageHeader from '../shared/InternalPageHeader';
 import { User, Pair } from '../types/Types';
 import UserImg from "../assets/imgs/user.jpg";
@@ -13,6 +13,7 @@ import { now } from 'moment';
 import { loadAbsoluteMoment, loadMoment } from '../utils/Moment';
 import { useSnackbar } from 'notistack';
 import registerActivity from '../shared/RegistryHandler';
+import { ComponentContext } from '../shared/ComponentContext';
 
 
 
@@ -21,6 +22,7 @@ export type PropsHome = {
 };
 
 function UserInfo() {
+    const context = useContext(ComponentContext)
 
     return <Grid container style={{ width: "100%" }} >
         <Grid item xs={4}>
@@ -28,11 +30,11 @@ function UserInfo() {
         </Grid>
         <Grid item xs={8}>
             <Typography variant="h5">
-                Mateus Torres
-                </Typography>
+                {context.user?.name}
+            </Typography>
             <Typography variant="h6">
-                Software Engineering
-                </Typography>
+                {context.user?.occupation}
+            </Typography>
             <Typography variant="subtitle1">
                 <AccessTime /> Working - Started at 12:25 AM
                 </Typography>
