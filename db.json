@@ -9,12 +9,62 @@
       "accessToken": "hnWGjGIEUXv4OqgeD8j38TI%2BFELOZS29bzrjx928g3Y%3D"
     }
   ],
-  "records": [
+  "work-records": [
     {
       "id": 1,
       "userId": 1,
-      "dateTime": "mvtorres",
-      "type": ""
+      "date": "2020/09/06",
+      "time": "07:30",
+      "activityType": "Arriving"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "date": "2020/09/06",
+      "time": "09:30",
+      "activityType": "Lunch Break"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "date": "2020/09/06",
+      "time": "09:45",
+      "activityType": "Lunch Break"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "date": "2020/09/06",
+      "time": "12:00",
+      "activityType": "Exiting"
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "date": "2020/09/06",
+      "time": "13:00",
+      "activityType": "Entering"
+    },
+    {
+      "id": 6,
+      "userId": 1,
+      "date": "2020/09/06",
+      "time": "15:00",
+      "activityType": "Lunch Break"
+    },
+    {
+      "id": 7,
+      "userId": 1,
+      "date": "2020/09/06",
+      "time": "15:15",
+      "activityType": "Lunch Break"
+    },
+    {
+      "id": 8,
+      "userId": 1,
+      "date": "2020/09/06",
+      "time": "18:00",
+      "activityType": "Exiting"
     }
   ]
 }

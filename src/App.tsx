@@ -8,12 +8,14 @@ import { User } from "./types/Types";
 import Cookies from "./utils/Cookies";
 import FontsLoader from "./utils/GoogleFontLoader";
 import { MainTheme } from "./utils/MaterialUiTheme";
+import { ComponentContextProvider, ComponentContextData } from './shared/ComponentContext';
 const Guest = loadable(() => import('./guest/Guest'));
-const Main = loadable(() => import('./main/Main'));
+const Home = loadable(() => import('./main/Home'));
 
 function App() {
   const [connected, setConnected] = useState(Cookies.get("acessTokenOowlish") != null);
   const [userInfos, setUserInfos] = useState<User | null>(null);
+  const [data] = useState<Partial<ComponentContextData>>({})
 
 
   const handleUponLogin = async (user: User, keepConnected: boolean) => {
@@ -30,16 +32,13 @@ function App() {
     setConnected(false)
   }
 
-
-
   return (
-    // <ComponentContextProvider value={data}>
-    <>
+    <ComponentContextProvider value={data}>
       <MuiThemeProvider theme={MainTheme}>
         <FontsLoader />
         <CssBaseline />
         <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
-          <Main logout={handleUponLogout} />
+          <Home logout={handleUponLogout} />
           {/* <Guest login={(user) => {
             handleUponLogin(user, true)
           }} /> */}
@@ -48,7 +47,7 @@ function App() {
           }} />} */}
         </SnackbarProvider>
       </MuiThemeProvider>
-    </>
+    </ComponentContextProvider>
   )
 }
 
