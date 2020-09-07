@@ -69,10 +69,10 @@ function Actions() {
 
     }
 
-    return <Box display="flex" flexDirection="column" flex={1} justifyContent="space-around" alignItems="center">
+    return <Box display="flex" flexDirection="column" flex={2} justifyContent="space-around" alignItems="center">
         <Button
             variant="contained"
-            style={{ width: "200px", backgroundColor: "green", marginBottom: 10 }}
+            style={{ width: "200px", height: "60px", backgroundColor: "green", marginBottom: 10, fontSize: "18px", fontWeight: "bold" }}
             title="Check-In"
             endIcon={<AlarmOn />}
             onClick={handleCheckin}
@@ -80,7 +80,7 @@ function Actions() {
             {"Check-In"}
         </Button>
         <Button
-            style={{ width: "200px", backgroundColor: "red" }}
+            style={{ width: "200px", height: "60px", backgroundColor: "red", fontSize: "18px", fontWeight: "bold" }}
             variant="contained"
             title="Lunch"
             endIcon={<LocalCafe />}
@@ -222,11 +222,11 @@ const HomeTeste = (props: PropsHome) => {
                                 <Box flex={1} display="flex" flexDirection="column" justifyContent="center" marginTop={5}>
                                     <Box textAlign="center">
                                         <Clock />
+                                        <Actions />
                                     </Box>
                                 </Box>
-                                <Box justifyContent="space-around" display="flex" flex={1} flexDirection="column" marginTop={5}>
-                                    <Actions />
-                                </Box>
+                                {/* <Box justifyContent="space-around" display="flex" flex={1} flexDirection="column" marginTop={5}>
+                                </Box> */}
                             </Box>
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -245,7 +245,7 @@ const HomeTeste = (props: PropsHome) => {
                                         </Grid>
                                     </Grid>
                                 </Box>
-                                <Box display="flex" flex={1} flexDirection="column" justifyContent="center" p={1}>
+                                <Box display="flex" flex={1}  p={1} flexDirection="column" justifyContent="center">
                                     <ActivityTable />
                                 </Box>
                             </Box>
