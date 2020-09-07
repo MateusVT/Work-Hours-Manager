@@ -46,14 +46,14 @@ function UserInfo() {
 
 
     return <Box display="flex" flexDirection="row" overflow="hidden">
-        <Box borderRadius="50%" overflow="hidden" p={0}>
+        <Box borderRadius="50%" overflow="hidden" p={0} >
             <Image
                 src="http://scclinicamedica.com.br/img/equipe/user.png"
                 width="130px"
                 height="100%"
             />
         </Box>
-        <Box p={1} >
+        <Box p={1} flex={1} >
             <Typography>{context.user?.name}</Typography>
             <Typography> {context.user?.occupation}</Typography>
             <Box display="flex" flexDirection="row">
@@ -85,7 +85,7 @@ function Actions() {
 
     }
 
-    return <>
+    return <Box display="flex" flexDirection="column" flex={1} justifyContent="space-around" alignItems="center">
         <Button
             variant="contained"
             style={{ width: "200px", backgroundColor: "green" }}
@@ -93,8 +93,8 @@ function Actions() {
             endIcon={<AlarmOn />}
             onClick={handleCheckin}
         >
-            Check-In
-            </Button>
+            {"Check-In"}
+        </Button>
         <Button
             style={{ width: "200px", backgroundColor: "red" }}
             variant="contained"
@@ -102,9 +102,9 @@ function Actions() {
             endIcon={<LocalCafe />}
             onClick={handleLunchBreak}
         >
-            Lunch
-            </Button>
-    </>
+            {"Lunch"}
+        </Button>
+    </Box>
 }
 
 function ActivityTable() {
@@ -253,7 +253,7 @@ const HomeTeste = (props: PropsHome) => {
                                             </Box>
                                         </Grid>
                                         <Grid xs={12} md={6} item>
-                                            <Box display="flex" height="100%" justifyContent="center" flexDirection="column">
+                                            <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
                                                 <Doughnut data={data} options={{}} legend={{ legendPosition: 'bottom' }} />
                                                 <Typography>Month worked hours</Typography>
                                             </Box>
