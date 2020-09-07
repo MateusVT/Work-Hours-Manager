@@ -70,7 +70,7 @@ function Actions() {
     return <Box display="flex" flexDirection="column" flex={1} justifyContent="space-around" alignItems="center">
         <Button
             variant="contained"
-            style={{ width: "200px", backgroundColor: "green" }}
+            style={{ width: "200px", backgroundColor: "green", marginBottom:10 }}
             title="Check-In"
             endIcon={<AlarmOn />}
             onClick={handleCheckin}
@@ -91,7 +91,7 @@ function Actions() {
 
 function ActivityTable() {
     const { workRecords } = useWorkRecords()
-    return <TableContainer component={'div'}>
+    return <TableContainer component={'div'} style={{maxHeight: '50vh'}}>
         <Table aria-label="a dense table">
             <TableHead>
                 <TableRow>
@@ -212,12 +212,12 @@ const HomeTeste = (props: PropsHome) => {
                                 <Box flex={1} display="flex" flexDirection="column" justifyContent="center">
                                     <UserInfo />
                                 </Box>
-                                <Box flex={1} display="flex" flexDirection="column" justifyContent="center">
+                                <Box flex={1} display="flex" flexDirection="column" justifyContent="center" marginTop={5}>
                                     <Box textAlign="center">
                                         <Clock />
                                     </Box>
                                 </Box>
-                                <Box justifyContent="space-around" display="flex" flex={1} flexDirection="column">
+                                <Box justifyContent="space-around" display="flex" flex={1} flexDirection="column" marginTop={5}>
                                     <Actions />
                                 </Box>
                             </Box>
