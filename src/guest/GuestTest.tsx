@@ -44,9 +44,9 @@ const GuestTest: React.FC<Props> = ({login}) => {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
             }}>
-            <Container maxWidth="md" component={'div'} style={{/*backgroundColor: 'blue'*/ }}>
-                <Box display="flex" flex={1} height="100%" width="100%" flexDirection="column" style={{ /*backgroundColor: 'pink'*/ }}>
-                    <Box display="flex" flexDirection="column" flex={1} justifyContent="center" textAlign="center">
+            <Container maxWidth="sm" component={'div'}>
+                <Box display="flex" height="100%" width="100%" flex={1}  flexDirection="column" marginBottom={20}>
+                    <Box display="flex" flexDirection="column" flex={2} justifyContent="center" textAlign="center">
                         <Typography style={{ textAlign: "center", marginTop: "3%", lineHeight: "3rem", fontSize: 32, fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
                             {"Welcome collaborator!"}
                         </Typography>
@@ -54,8 +54,8 @@ const GuestTest: React.FC<Props> = ({login}) => {
                             {"We will help you to manage and register your workday."}<br />
                         </Typography>
                     </Box>
-                    <Box display="flex" flexDirection="row" flex={1} textAlign="center">
-                        <Box component={Paper} display="flex" flex={1} flexDirection="column" justifyContent="space-around" m={2}>
+                    <Box display="flex" flexDirection="row" flex={3} textAlign="center">
+                        <Box component={Paper} display="flex" flex={1} flexDirection="column" justifyContent="space-around" marginBottom={30} padding={1}>
                             <Box display="flex" flex={1} flexDirection="row" alignItems="center" justifyContent="center">
                                 <Typography style={{ fontSize: '2rem', textAlign: "center", fontWeight: "bold", color: "black" }}>
                                     {"Access Panel"}
