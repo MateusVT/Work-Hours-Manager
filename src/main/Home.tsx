@@ -124,7 +124,41 @@ function RightPanel() {
 
 
 function Home(props: PropsHome) {
+    const { enqueueSnackbar } = useSnackbar();
+    const [user, setUser] = useState("en");
+    const context = useContext(ComponentContext)
+    const [, updateState] = useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
 
+
+    useEffect(() => {
+        if (!context.user) {
+            Http.get({
+                path: `/users?accessToken=${Cookies.get("accessTokenOowlish")}`,
+                onError: (error: string) => {
+                    console.log(error)
+                    enqueueSnackbar('Invalid username', { variant: 'error' })
+                },
+                onSuccess: (users: User[]) => {
+                    const user = users[0]
+                    console.log(user)
+                    Http.get({
+                        path: `/work-records?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
+                        onError: (error: string) => {
+                            console.log(error)
+                            enqueueSnackbar('Invalid username', { variant: 'error' })
+                        },
+                        onSuccess: (activities: ActivityRecord[]) => {
+                            context.user = user
+                            context.workRecords = activities
+                            enqueueSnackbar('Welcome ' + user.name + '!', { variant: 'success' })
+                            forceUpdate()
+                        }
+                    })
+                }
+            })
+        }
+    }, [])
 
 
     return (

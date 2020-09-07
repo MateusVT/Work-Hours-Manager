@@ -18,40 +18,7 @@ function App() {
   const [connected, setConnected] = useState(Cookies.get("accessTokenOowlish") != null);
   const [userInfos, setUserInfos] = useState<User | null>(null);
   const [data, setData] = useState<Partial<ComponentContextData>>({})
-  // const { enqueueSnackbar } = useSnackbar();
-  // const context = useContext(ComponentContext)
 
-  // useEffect(() => {
-  //   const accessToken = Cookies.get("accessTokenOowlish")
-  //   if (accessToken != null) {
-  //     handleLogin(accessToken)
-  //   }
-  // }, [])
-
-  // function handleLogin(accessToken: string) {
-  //   Http.get({
-  //     path: `/users?accessToken=${accessToken}`,
-  //     onError: (error: string) => {
-  //       console.log(error)
-  //     },
-  //     onSuccess: (users: User[]) => {
-  //       const user = users[0]
-  //       console.log(user)
-  //       Http.get({
-  //         path: `/work-records?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
-  //         onError: (error: string) => {
-  //           console.log(error)
-  //         },
-  //         onSuccess: (activities: ActivityRecord[]) => {
-  //           // context.user = user
-  //           // context.workRecords = activities
-  //           // enqueueSnackbar('Welcome ' + user.name + '!', { variant: 'success' })
-  //         }
-  //       })
-  //     }
-  //   })
-
-  // }
 
   function handleUponLogin(user: User, keepConnected: boolean) {
     Cookies.set("accessTokenOowlish", user.accessToken, !keepConnected)

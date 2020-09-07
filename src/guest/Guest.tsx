@@ -21,12 +21,12 @@ function LoginCard(props: PropsGuest) {
     const context = useContext(ComponentContext)
 
 
-    useEffect(() => {
-        const accessToken = Cookies.get("accessTokenOowlish")
-        if (accessToken != null) {
-            handleLogin()
-        }
-    }, [])
+    // useEffect(() => {
+    //     const accessToken = Cookies.get("accessTokenOowlish")
+    //     if (accessToken != null) {
+    //         handleLogin()
+    //     }
+    // }, [])
 
     function handleLogin(accessToken?: string) {
         if (username.trim().length > 0 && password.trim().length > 0) {
@@ -56,7 +56,6 @@ function LoginCard(props: PropsGuest) {
                 }
             })
         }
-
     }
 
     return (
