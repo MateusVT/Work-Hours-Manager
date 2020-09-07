@@ -70,16 +70,9 @@
     {
       "userId": 1,
       "date": "2020/09/07",
-      "time": "23:20",
-      "activityType": "Arriving",
-      "id": 9
-    },
-    {
-      "userId": 1,
-      "date": "2020/09/07",
-      "time": "23:31",
+      "time": "11:10",
       "activityType": "Lunch Break",
-      "id": 10
+      "id": 9
     }
   ]
 }
