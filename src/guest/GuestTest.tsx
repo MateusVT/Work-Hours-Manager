@@ -41,13 +41,7 @@ const GuestTest: React.FC<Props> = ({ login }) => {
 
         return <Particles
             style={{
-                position: "absolute",
-                top:"0 !important"
-                // marginLeft: "auto",
-                // marginRight: "auto",
-                // left: 0,
-                // right: 0,
-                // textAlign: "center"
+                position: "absolute"
             }}
             params={{
                 "fps_limit": 30,
@@ -124,10 +118,10 @@ const GuestTest: React.FC<Props> = ({ login }) => {
                 backgroundRepeat: 'no-repeat'
             }}>
             <OwlParticle />
-            {/* <Container maxWidth="sm" component={'div'}>
-                <Box display="flex" height="100%" width="100%" flex={1} flexDirection="column" marginBottom={20}>
+            <Container maxWidth="sm" component={'div'}>
+                <Box display="flex" height="100%" width="100%" flex={1} flexDirection="column" marginBottom={10}>
                     <Box display="flex" flexDirection="column" flex={2} justifyContent="center" textAlign="center">
-                        <Typography style={{ textAlign: "center", marginTop: "3%", lineHeight: "3rem", fontSize: 32, fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
+                        <Typography variant="h4" style={{ textAlign: "center", lineHeight: "3rem",fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
                             {"Welcome collaborator!"}
                         </Typography>
                         <Typography variant="h6" style={{ textAlign: "center", marginTop: "1%", color: "white" }}>
@@ -135,12 +129,8 @@ const GuestTest: React.FC<Props> = ({ login }) => {
                         </Typography>
                     </Box>
                     <Box display="flex" flexDirection="row" flex={3} textAlign="center">
-                        <Box  display="flex" flex={1} flexDirection="column" justifyContent="space-around" marginBottom={30} padding={1}>
-                            <Box display="flex" flex={1} flexDirection="row" alignItems="center" justifyContent="center">
-                                <Typography style={{ fontSize: '2rem', textAlign: "center", fontWeight: "bold", color: "black" }}>
-                                    {"Access Panel"}
-                                </Typography>
-                            </Box>
+                        <Box display="flex" flex={1} flexDirection="column" justifyContent="space-around" marginBottom={30} padding={1}>
+                            
                             <Box display="flex" flex={2} flexDirection="column" justifyContent="space-around">
                                 <CustomInput
                                     id={"username"}
@@ -198,7 +188,7 @@ const GuestTest: React.FC<Props> = ({ login }) => {
                         </Box>
                     </Box>
                 </Box>
-            </Container> */}
+            </Container>
         </Box>
     )
 }
