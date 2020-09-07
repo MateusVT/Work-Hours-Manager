@@ -16,6 +16,7 @@ import registerActivity from '../shared/RegistryHandler';
 import { ComponentContext } from '../shared/ComponentContext';
 import last from 'array-last';
 import Cookies from 'js-cookie';
+import { useWorkRecords, WorkRecordsProvider } from '../utils/WorkRecordsProvider';
 
 
 
@@ -52,18 +53,24 @@ function UserInfo() {
 }
 
 function Actions() {
+    const context = useContext(ComponentContext)
     const { enqueueSnackbar } = useSnackbar();
+    const { addWorkRecord } = useWorkRecords()
+    // const [, updateState] = useState();
+    // const forceUpdate = React.useCallback(() => updateState({}), []);
 
     function handleCheckin() {
-        registerActivity("Arriving")
+        addWorkRecord("Arriving")
     }
 
     function handleCheckout() {
-        registerActivity("Exiting")
+        addWorkRecord("Exiting")
+
     }
 
     function handleLunchBreak() {
-        registerActivity("Lunch Break")
+        addWorkRecord("Lunch Break")
+
     }
 
     return <Grid container style={{ width: "100%" }}>
@@ -93,15 +100,14 @@ function Actions() {
 }
 
 function ActivityTable() {
-    const context = useContext(ComponentContext)
-    if (!context.workRecords) return <></>
+    const { workRecords } = useWorkRecords()
 
     const columns = [
         { title: 'Activity', field: 'activityType' },
         { title: 'Date', field: 'date' },
         { title: 'Time', field: 'time' }
     ]
-    return <Table title={"Today's Records"} pageSize={10} columns={columns} items={context.workRecords} />
+    return <Table title={"Today's Records"} pageSize={10} columns={columns} items={workRecords} />
 }
 
 
@@ -162,13 +168,15 @@ function Home(props: PropsHome) {
 
 
     return (
-        <div style={{ width: "100%", height: "100%", overflowY: "hidden" }}>
-            <InternalPageHeader logout={() => { props.logout() }} />
-            <div style={{ width: "100%", height: "90%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <LeftPanel />
-                <RightPanel />
+        <WorkRecordsProvider>
+            <div style={{ width: "100%", height: "100%", overflowY: "hidden" }}>
+                <InternalPageHeader logout={() => { props.logout() }} />
+                <div style={{ width: "100%", height: "90%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <LeftPanel />
+                    <RightPanel />
+                </div>
             </div>
-        </div>
+        </WorkRecordsProvider>
     );
 }
 

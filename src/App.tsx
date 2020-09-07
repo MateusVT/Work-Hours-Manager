@@ -11,6 +11,7 @@ import { MainTheme } from "./utils/MaterialUiTheme";
 import { ComponentContextProvider, ComponentContextData, ComponentContext } from './shared/ComponentContext';
 import Http from './utils/Http';
 import { nowLocale } from './utils/Moment';
+import { WorkRecordsProvider } from './utils/WorkRecordsProvider';
 const Guest = loadable(() => import('./guest/Guest'));
 const Home = loadable(() => import('./main/Home'));
 

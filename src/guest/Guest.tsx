@@ -7,6 +7,7 @@ import Http from "../utils/Http";
 import { ComponentContext } from "../shared/ComponentContext";
 import { nowLocale } from "../utils/Moment";
 import Cookies from "js-cookie";
+import { useWorkRecords } from "../utils/WorkRecordsProvider";
 
 export type PropsGuest = {
     login: (user: User) => void
@@ -20,16 +21,9 @@ function LoginCard(props: PropsGuest) {
     const { enqueueSnackbar } = useSnackbar();
     const context = useContext(ComponentContext)
 
-
-    // useEffect(() => {
-    //     const accessToken = Cookies.get("accessTokenOowlish")
-    //     if (accessToken != null) {
-    //         handleLogin()
-    //     }
-    // }, [])
-
     function handleLogin(accessToken?: string) {
         if (username.trim().length > 0 && password.trim().length > 0) {
+
             Http.get({
                 path: accessToken ? `/users?accessToken=${Cookies.get("accessTokenOowlish")}` : `/users?username=${username}&password=${password}`,
                 onError: (error: string) => {
