@@ -37,6 +37,84 @@ const GuestTest: React.FC<Props> = ({ login }) => {
         }
     }
 
+    function OwlParticle() {
+
+        return <Particles
+            style={{
+                position: "absolute",
+                top:"0 !important"
+                // marginLeft: "auto",
+                // marginRight: "auto",
+                // left: 0,
+                // right: 0,
+                // textAlign: "center"
+            }}
+            params={{
+                "fps_limit": 30,
+                "particles": {
+                    "collisions": {
+                        "enable": false
+                    },
+                    "number": {
+                        "value": 200,
+                        "density": {
+                            "enable": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 30,
+                        "opacity": 0.4
+                    },
+                    "move": {
+                        "speed": 0.5
+                    },
+                    "opacity": {
+                        "anim": {
+                            "enable": true,
+                            "opacity_min": 0.05,
+                            "speed": 0.5,
+                            "sync": true
+                        },
+                        "value": 0.4
+                    }
+                },
+                "polygon": {
+                    "enable": true,
+                    "scale": 0.7,
+                    "type": "inline" as any,
+                    "move": {
+                        "radius": 10
+                    },
+                    "url": '/imgs/owl.svg',
+                    "inline": {
+                        "arrangement": "equidistant"
+                    },
+                    "draw": {
+                        "enable": true,
+                        "stroke": {
+                            "color": "rgba(255, 255, 255, .2)"
+                        }
+                    }
+                },
+                "retina_detect": false,
+                "interactivity": {
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "bubble"
+                        }
+                    },
+                    "modes": {
+                        "bubble": {
+                            "size": 6,
+                            "distance": 40
+                        }
+                    }
+                }
+            }} />
+    }
+
     return (
         <Box component={'div'} display="flex" flex={1} height="100%" width="100%" bgcolor="black"
             style={{
@@ -45,56 +123,19 @@ const GuestTest: React.FC<Props> = ({ login }) => {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
             }}>
-            <Particles
-                width="20%" height="20%"
-                style={{
-                    position: "absolute",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    left: 0,
-                    right: 0,
-                    textAlign: "center"
-                }}
-                params={{
-                    polygon: {
-                        enable: true,
-                        type: "inside" as any,
-                        move: {
-                            radius: 10
-                        },
-                        url: '/imgs/owl.svg'
-                    }
-                }} />
-            {/* <Particles style={{ position: "absolute" }} params={{
-                "particles": {
-                    "number": {
-                        "value": 50
-                    },
-                    "size": {
-                        "value": 3
-                    }
-                },
-                "interactivity": {
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "repulse"
-                        }
-                    }
-                }
-            }} width="100%" height="100%" /> */}
-            <Container maxWidth="md" component={'div'} style={{/*backgroundColor: 'blue'*/ }}>
-                <Box display="flex" flex={1} height="100%" width="100%" flexDirection="column" style={{ /*backgroundColor: 'pink'*/ }}>
-                    <Box display="flex" flexDirection="column" flex={1} justifyContent="center" textAlign="center">
-                        <Typography variant="h4" style={{ textAlign: "center", marginTop: "3%", lineHeight: "3rem", fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
+            <OwlParticle />
+            {/* <Container maxWidth="sm" component={'div'}>
+                <Box display="flex" height="100%" width="100%" flex={1} flexDirection="column" marginBottom={20}>
+                    <Box display="flex" flexDirection="column" flex={2} justifyContent="center" textAlign="center">
+                        <Typography style={{ textAlign: "center", marginTop: "3%", lineHeight: "3rem", fontSize: 32, fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
                             {"Welcome collaborator!"}
                         </Typography>
                         <Typography variant="h6" style={{ textAlign: "center", marginTop: "1%", color: "white" }}>
                             {"We will help you to manage and register your workday."}<br />
                         </Typography>
                     </Box>
-                    <Box display="flex" flexDirection="row" flex={1} textAlign="center">
-                        <Box component={Paper} display="flex" flex={1} flexDirection="column" justifyContent="space-around" m={2}>
+                    <Box display="flex" flexDirection="row" flex={3} textAlign="center">
+                        <Box  display="flex" flex={1} flexDirection="column" justifyContent="space-around" marginBottom={30} padding={1}>
                             <Box display="flex" flex={1} flexDirection="row" alignItems="center" justifyContent="center">
                                 <Typography style={{ fontSize: '2rem', textAlign: "center", fontWeight: "bold", color: "black" }}>
                                     {"Access Panel"}
@@ -157,7 +198,7 @@ const GuestTest: React.FC<Props> = ({ login }) => {
                         </Box>
                     </Box>
                 </Box>
-            </Container>
+            </Container> */}
         </Box>
     )
 }
