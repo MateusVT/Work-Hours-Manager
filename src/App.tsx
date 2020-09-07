@@ -9,6 +9,7 @@ import Cookies from "./utils/Cookies";
 import FontsLoader from "./utils/GoogleFontLoader";
 import { MainTheme } from "./utils/MaterialUiTheme";
 import { ComponentContextProvider, ComponentContextData } from './shared/ComponentContext';
+import HomeTeste from './main/HomeTest';
 const Guest = loadable(() => import('./guest/Guest'));
 const Home = loadable(() => import('./main/Home'));
 
@@ -38,7 +39,8 @@ function App() {
         <FontsLoader />
         <CssBaseline />
         <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
-          <Home logout={handleUponLogout} />
+          {/* <Home logout={handleUponLogout} /> */}
+          <HomeTeste/>
           {/* <Guest login={(user) => {
             handleUponLogin(user, true)
           }} /> */}
