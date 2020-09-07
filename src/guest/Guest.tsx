@@ -1,9 +1,13 @@
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import CustomInput from "../shared/CustomInput";
-import { User } from "../types/Types";
+import { User, ActivityRecord } from "../types/Types";
 import Http from "../utils/Http";
+import { ComponentContext } from "../shared/ComponentContext";
+import { nowLocale } from "../utils/Moment";
+import Cookies from "js-cookie";
+import { useWorkRecords } from "../utils/WorkRecordsProvider";
 
 export type PropsGuest = {
     login: (user: User) => void
@@ -15,23 +19,37 @@ function LoginCard(props: PropsGuest) {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const { enqueueSnackbar } = useSnackbar();
+    const context = useContext(ComponentContext)
 
-    function handleLogin() {
-
+    function handleLogin(accessToken?: string) {
         if (username.trim().length > 0 && password.trim().length > 0) {
+
             Http.get({
-                path: `/users?username=${username}&password=${password}`,
+                path: accessToken ? `/users?accessToken=${Cookies.get("accessTokenOowlish")}` : `/users?username=${username}&password=${password}`,
                 onError: (error: string) => {
                     console.log(error)
                     enqueueSnackbar('Invalid username', { variant: 'error' })
                 },
-                onSuccess: (user: User) => {
-                    props.login(user)
-                    enqueueSnackbar('Welcome' + user.name + '!', { variant: 'success' })
+                onSuccess: (users: User[]) => {
+                    const user = users[0]
+                    console.log(user)
+                    Http.get({
+                        path: `/work-records?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
+                        onError: (error: string) => {
+                            console.log(error)
+                            enqueueSnackbar('Invalid username', { variant: 'error' })
+                        },
+                        onSuccess: (activities: ActivityRecord[]) => {
+
+                            props.login(user)
+                            context.user = user
+                            enqueueSnackbar('Welcome ' + user.name + '!', { variant: 'success' })
+                            context.workRecords = activities
+                        }
+                    })
                 }
             })
         }
-
     }
 
     return (
@@ -155,7 +173,6 @@ const Guest = (props: PropsGuest) => {
     return (
         <>
             <GuestHome />
-
         </>
     );
 }

@@ -1,55 +1,54 @@
 import loadable from '@loadable/component';
 import { MuiThemeProvider } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { SnackbarProvider } from 'notistack';
-import React, { useState } from "react";
+import { SnackbarProvider, useSnackbar } from 'notistack';
+import React, { useState, useContext, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { User } from "./types/Types";
+import { User, ActivityRecord } from "./types/Types";
 import Cookies from "./utils/Cookies";
 import FontsLoader from "./utils/GoogleFontLoader";
 import { MainTheme } from "./utils/MaterialUiTheme";
-import { ComponentContextProvider, ComponentContextData } from './shared/ComponentContext';
-import HomeTeste from './main/HomeTest';
+import { ComponentContextProvider, ComponentContextData, ComponentContext } from './shared/ComponentContext';
+import Http from './utils/Http';
+import { nowLocale } from './utils/Moment';
+import { WorkRecordsProvider } from './utils/WorkRecordsProvider';
 const Guest = loadable(() => import('./guest/Guest'));
 const Home = loadable(() => import('./main/Home'));
 
 function App() {
-  const [connected, setConnected] = useState(Cookies.get("acessTokenOowlish") != null);
+  const [connected, setConnected] = useState(Cookies.get("accessTokenOowlish") != null);
   const [userInfos, setUserInfos] = useState<User | null>(null);
-  const [data] = useState<Partial<ComponentContextData>>({})
+  const [data, setData] = useState<Partial<ComponentContextData>>({})
 
 
-  const handleUponLogin = async (user: User, keepConnected: boolean) => {
-    Cookies.set("acessTokenOowlish", user.accessToken, !keepConnected)
+  function handleUponLogin(user: User, keepConnected: boolean) {
+    Cookies.set("accessTokenOowlish", user.accessToken, !keepConnected)
     if (user) {
-      // context.userInfos = user
       setConnected(true)
     }
   }
-
-  const handleUponLogout = () => {
-    Cookies.set("acessTokenOowlish", null)
+  function handleUponLogout() {
+    Cookies.set("accessTokenOowlish", null)
     window.location.reload()
     setConnected(false)
   }
 
   return (
-    <ComponentContextProvider value={data}>
-      <MuiThemeProvider theme={MainTheme}>
-        <FontsLoader />
-        <CssBaseline />
-        <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
-          {/* <Home logout={handleUponLogout} /> */}
-          <HomeTeste/>
-          {/* <Guest login={(user) => {
-            handleUponLogin(user, true)
-          }} /> */}
-          {/* {connected ? <Main logout={handleUponLogout} /> : <Guest login={(user) => {
-            handleUponLogin(user, true)
-          }} />} */}
-        </SnackbarProvider>
-      </MuiThemeProvider>
-    </ComponentContextProvider>
+    <>
+      <ComponentContextProvider value={data}>
+        <MuiThemeProvider theme={MainTheme}>
+          <FontsLoader />
+          <CssBaseline />
+          <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
+            {connected ?
+              <Home logout={handleUponLogout} />
+              : <Guest login={(user) => {
+                handleUponLogin(user, true)
+              }} />}
+          </SnackbarProvider>
+        </MuiThemeProvider>
+      </ComponentContextProvider>
+    </>
   )
 }
 

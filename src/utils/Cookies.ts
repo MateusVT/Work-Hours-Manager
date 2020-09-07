@@ -1,4 +1,4 @@
-type Cookie = "acessTokenOowlish"
+type Cookie = "accessTokenOowlish"
 
 class Cookies {
 	static get(cookie: Cookie) {

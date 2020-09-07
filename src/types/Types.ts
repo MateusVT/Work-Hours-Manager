@@ -8,15 +8,22 @@ export type User = {
     username: string
     password: string
     name: string
+    occupation: string
     workload: string //in minutes = 8 hours
     accessToken: string
 }
 
+export type UserCredentials = {
+    username: string
+    password: string
+}
+
 export type ActivityRecord = {
+    id: number
+    userId: number
+    date: string
+    time: string
     activityType: ActivityTypes
-    startedAt: string
-    endedAt: string
-    duration: string
 }
 
 export type ActivityTypes = "Arriving" | "Exiting" | "Lunch Break"
