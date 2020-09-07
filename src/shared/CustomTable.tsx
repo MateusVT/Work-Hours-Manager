@@ -19,7 +19,7 @@ type TableProps = {
     itemAdd?: (item: any) => void
 }
 
-export default function Table(props: TableProps) {
+export default function CustomTable(props: TableProps) {
     const { title, pageSize } = props
     const [state, setState] = React.useState<TableState>({
         columns: props.columns,

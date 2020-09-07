@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Table from '../../shared/Table'
+import CustomTable from '../../shared/CustomTable'
 import { useWorkRecords, WorkRecordsProvider } from '../../utils/WorkRecordsProvider';
 
 export default function ActivityTable() {
@@ -15,6 +15,6 @@ export default function ActivityTable() {
         console.log(workRecords.length)
     }, [])
 
-    return <Table title={"Today's Records"} pageSize={10} columns={columns} items={workRecords} />
+    return <CustomTable title={"Today's Records"} pageSize={10} columns={columns} items={workRecords} />
 }
 

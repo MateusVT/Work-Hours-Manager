@@ -16,27 +16,9 @@ import Clock from "../../utils/Clock";
 import { LocalCafe, AlarmOn } from "@material-ui/icons";
 import { useSnackbar } from "notistack";
 import { PropsHome } from "./Home";
+import CustomTable from "../../shared/CustomTable";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-    toolbar: theme.mixins.toolbar,
-    table: {
-        // minWidth: 650,
-    },
-}));
+
 
 function UserInfo() {
     const { workRecords } = useWorkRecords()
@@ -166,7 +148,6 @@ export type PropsHomeTeste = {
     logout: () => void
 }
 const HomeTeste = (props: PropsHome) => {
-    const classes = useStyles();
 
     function createData(name: string, calories: string, fat: string, carbs: string) {
         return { name, calories, fat, carbs };
@@ -180,7 +161,6 @@ const HomeTeste = (props: PropsHome) => {
 
     const drawer = (
         <div>
-            <div className={classes.toolbar} />
             <Divider />
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
