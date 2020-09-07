@@ -124,7 +124,7 @@ function HomeToolbar(props: { logout: () => void }) {
     const lastWorkRecord = last(workRecords || []) as ActivityRecord
 
 
-    return <Toolbar style={{ backgroundColor: "#1a1a54" }}>
+    return <Toolbar style={{ backgroundColor: "#04010e" }}>
         <IconButton edge="start" style={{ marginRight: 16 }} color="inherit" aria-label="menu">
             <MenuIcon style={{ color: "white" }} />
         </IconButton>

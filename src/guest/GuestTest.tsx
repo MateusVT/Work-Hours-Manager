@@ -41,7 +41,12 @@ const GuestTest: React.FC<Props> = ({ login }) => {
 
         return <Particles
             style={{
-                position: "absolute"
+                position: "absolute",
+                //  marginLeft: "auto",
+                // marginRight: "auto",
+                // left: 0,
+                // right: 0,
+                // textAlign: "center"
             }}
             params={{
                 "fps_limit": 30,
@@ -57,7 +62,7 @@ const GuestTest: React.FC<Props> = ({ login }) => {
                     },
                     "line_linked": {
                         "enable": true,
-                        "distance": 30,
+                        "distance": 25,
                         "opacity": 0.4
                     },
                     "move": {
@@ -80,18 +85,18 @@ const GuestTest: React.FC<Props> = ({ login }) => {
                     "move": {
                         "radius": 10
                     },
-                    "url": '/imgs/owl.svg',
+                    "url": '/imgs/owl (1).svg',
                     "inline": {
                         "arrangement": "equidistant"
                     },
                     "draw": {
                         "enable": true,
                         "stroke": {
-                            "color": "rgba(255, 255, 255, .2)"
+                            "color": "rgba(255, 255, 255, .9)"
                         }
                     }
                 },
-                "retina_detect": false,
+                "retina_detect": true,
                 "interactivity": {
                     "events": {
                         "onhover": {
@@ -102,7 +107,7 @@ const GuestTest: React.FC<Props> = ({ login }) => {
                     "modes": {
                         "bubble": {
                             "size": 6,
-                            "distance": 40
+                            "distance": 10
                         }
                     }
                 }
@@ -112,7 +117,7 @@ const GuestTest: React.FC<Props> = ({ login }) => {
     return (
         <Box component={'div'} display="flex" flex={1} height="100%" width="100%"
             style={{
-                backgroundColor: "#1a1a54"
+                backgroundColor: "#04010e"
             }}>
             <Container maxWidth="sm" component={'div'}>
                 <Box display="flex" height="100%" width="100%" flex={1} flexDirection="column" marginBottom={10}>
