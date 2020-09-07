@@ -7,6 +7,7 @@ import Http from "../utils/Http";
 import { ComponentContext } from "../shared/ComponentContext";
 import { nowLocale } from "../utils/Moment";
 import Cookies from "js-cookie";
+import Particles from 'react-particles-js';
 import { useWorkRecords } from "../utils/WorkRecordsProvider";
 
 export type PropsGuest = {
@@ -138,21 +139,33 @@ const Guest = (props: PropsGuest) => {
     function GuestHome() {
 
         return (
-            <div style={{ width: "100%", height: "100%", overflowY: "hidden" }}>
-
-                <div style={{
-                    background: "url(/imgs/guest-background.jpg) no-repeat center ",
-                    backgroundSize: "100% 100%", width: "100%", height: "100%"
-                }}>
-                    <TopLetter />
-                    <Grid container style={{ display: "flex", textAlign: "center", width: "100%", height: "70%" }}>
-                        <Grid item lg={12} style={{ justifyContent: "center", alignItems: "center", display: "flex", height: "100%", width: "50%" }} >
-                            <LoginCard login={props.login} />
-                        </Grid>
+            <div style={{ width: "100%", height: "100%", overflowY: "hidden", backgroundColor: "#050810" }}>
+                <TopLetter />
+                <Grid container style={{ display: "flex", textAlign: "center", width: "100%", height: "70%" }}>
+                    <Grid item lg={12} style={{ justifyContent: "center", alignItems: "center", display: "flex", height: "100%", width: "50%" }} >
+                        <LoginCard login={props.login} />
                     </Grid>
-                </div>
+                </Grid>
+                <Particles params={{
+                    "particles": {
+                        "number": {
+                            "value": 50
+                        },
+                        "size": {
+                            "value": 3
+                        }
+                    },
+                    "interactivity": {
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "repulse"
+                            }
+                        }
+                    }
+                }} width="100%" height="100%" />
 
-            </div>
+            </div >
         );
     }
 

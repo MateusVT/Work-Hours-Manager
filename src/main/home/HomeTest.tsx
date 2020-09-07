@@ -1,22 +1,19 @@
-import React, { useState, useContext } from "react";
-import MenuIcon from '@material-ui/icons/Menu';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import { AppBar, Box, Button, Divider, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@material-ui/core";
+import { AlarmOn, LocalCafe } from "@material-ui/icons";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { MuiThemeProvider, Box, AppBar, Toolbar, IconButton, Typography, Button, makeStyles, Container, Grid, Paper, Divider, List, ListItem, ListItemIcon, ListItemText, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import Image from '../../utils/Image';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { Doughnut, ChartData } from 'react-chartjs-2';
-import { WorkRecordsProvider, useWorkRecords } from "../../utils/WorkRecordsProvider";
-import { ComponentContext } from "../../shared/ComponentContext";
+import MenuIcon from '@material-ui/icons/Menu';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 import last from "array-last";
+import { useSnackbar } from "notistack";
+import React, { useContext } from "react";
+import { Doughnut } from 'react-chartjs-2';
+import { ComponentContext } from "../../shared/ComponentContext";
 import { ActivityRecord } from "../../types/Types";
 import Clock from "../../utils/Clock";
-import { LocalCafe, AlarmOn } from "@material-ui/icons";
-import { useSnackbar } from "notistack";
+import Image from '../../utils/Image';
+import { useWorkRecords, WorkRecordsProvider } from "../../utils/WorkRecordsProvider";
 import { PropsHome } from "./Home";
-import CustomTable from "../../shared/CustomTable";
 
 
 

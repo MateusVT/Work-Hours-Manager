@@ -26,9 +26,11 @@
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
     "react-google-font-loader": "^1.1.0",
+    "react-particles-js": "^3.3.0",
     "react-scripts": "3.4.3",
+    "react-tsparticles": "^1.17.10",
     "react-use": "^15.3.4",
-    "typescript": "~3.7.2"
+    "typescript": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

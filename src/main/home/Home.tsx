@@ -114,7 +114,7 @@ function Home(props: PropsHome) {
     const { enqueueSnackbar } = useSnackbar();
     const context = useContext(ComponentContext)
     const [, updateState] = useState();
-    const forceUpdate = React.useCallback(() => updateState({}), []);
+    // const forceUpdate = React.useCallback(() => updateState({}), []);
 
 
     useEffect(() => {
