@@ -1,11 +1,12 @@
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import CustomInput from "../shared/CustomInput";
 import { User, ActivityRecord } from "../types/Types";
 import Http from "../utils/Http";
 import { ComponentContext } from "../shared/ComponentContext";
 import { nowLocale } from "../utils/Moment";
+import Cookies from "js-cookie";
 
 export type PropsGuest = {
     login: (user: User) => void
@@ -19,17 +20,25 @@ function LoginCard(props: PropsGuest) {
     const { enqueueSnackbar } = useSnackbar();
     const context = useContext(ComponentContext)
 
-    function handleLogin() {
 
+    useEffect(() => {
+        const accessToken = Cookies.get("accessTokenOowlish")
+        if (accessToken != null) {
+            handleLogin()
+        }
+    }, [])
+
+    function handleLogin(accessToken?: string) {
         if (username.trim().length > 0 && password.trim().length > 0) {
             Http.get({
-                path: `/users?username=${username}&password=${password}`,
+                path: accessToken ? `/users?accessToken=${Cookies.get("accessTokenOowlish")}` : `/users?username=${username}&password=${password}`,
                 onError: (error: string) => {
                     console.log(error)
                     enqueueSnackbar('Invalid username', { variant: 'error' })
                 },
                 onSuccess: (users: User[]) => {
                     const user = users[0]
+                    console.log(user)
                     Http.get({
                         path: `/work-records?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
                         onError: (error: string) => {
@@ -171,7 +180,6 @@ const Guest = (props: PropsGuest) => {
     return (
         <>
             <GuestHome />
-
         </>
     );
 }

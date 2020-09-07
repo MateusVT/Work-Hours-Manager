@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useState, useMemo, useContext, useEffect } from 'react';
 import InternalPageHeader from '../shared/InternalPageHeader';
-import { User, Pair } from '../types/Types';
+import { User, Pair, ActivityRecord } from '../types/Types';
 import UserImg from "../assets/imgs/user.jpg";
 import { Button, Avatar, Grid, Typography, IconButton } from '@material-ui/core';
 import { AlarmOn, LocalCafe } from '@material-ui/icons';
@@ -10,10 +10,12 @@ import Table from '../shared/Table';
 import { Doughnut } from 'react-chartjs-2';
 import Http from '../utils/Http';
 import { now } from 'moment';
-import { loadAbsoluteMoment, loadMoment } from '../utils/Moment';
+import { loadAbsoluteMoment, loadMoment, nowLocale } from '../utils/Moment';
 import { useSnackbar } from 'notistack';
 import registerActivity from '../shared/RegistryHandler';
 import { ComponentContext } from '../shared/ComponentContext';
+import last from 'array-last';
+import Cookies from 'js-cookie';
 
 
 
@@ -24,6 +26,8 @@ export type PropsHome = {
 function UserInfo() {
 
     const context = useContext(ComponentContext)
+    const lastWorkRecord = last(context.workRecords || []) as ActivityRecord
+
     return <Grid container style={{ width: "100%" }} >
         <Grid item xs={4}>
             <Avatar alt="Oowlish User" style={{ width: "100px", height: "100px", boxShadow: "0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)" }} src={UserImg} />
@@ -36,8 +40,9 @@ function UserInfo() {
                 {context.user?.occupation}
             </Typography>
             <Typography variant="subtitle1">
-                <AccessTime /> Working - Started at 12:25 AM
-                </Typography>
+                <AccessTime />
+                {lastWorkRecord && `Last Status: ${lastWorkRecord.activityType} - at ${lastWorkRecord.time}`}
+            </Typography>
         </Grid>
         <Grid item xs={12}>
             <Clock />
@@ -45,7 +50,6 @@ function UserInfo() {
     </Grid>
 
 }
-
 
 function Actions() {
     const { enqueueSnackbar } = useSnackbar();
@@ -89,9 +93,9 @@ function Actions() {
 }
 
 function ActivityTable() {
-
     const context = useContext(ComponentContext)
     if (!context.workRecords) return <></>
+
     const columns = [
         { title: 'Activity', field: 'activityType' },
         { title: 'Date', field: 'date' },
@@ -100,55 +104,6 @@ function ActivityTable() {
     return <Table title={"Today's Records"} pageSize={10} columns={columns} items={context.workRecords} />
 }
 
-function DailyDoughnutChart() {
-    // const pairs = useMemo<Pair<E>[]>(
-    //     () =>
-    //         items
-    //             .map((item, index) => ({ key: item, value: fetchValue(item, index) }))
-    //             .filter(pair => showZeros || pair.value > 0),
-    //     [fetchValue, items, showZeros]
-    // )
-    // const colors = useMemo(() => pairs.map((pair, index) => fetchColor(pair.key, index)), [fetchColor, pairs])
-    // const keys = useMemo(() => pairs.map((pair, index) => fetchLegend(pair.key, index)), [fetchLegend, pairs])
-
-    // const values = useMemo(
-    //     () =>
-    //         pairs
-    //             .map(pair => pair.value)
-    //             .sort((a, b) => {
-    //                 if (props.orderBy) {
-    //                     switch (props.orderBy) {
-    //                         case "desc":
-    //                             if (a < b) {
-    //                                 return 1
-    //                             }
-    //                             if (a > b) {
-    //                                 return -1
-    //                             }
-    //                             return 0
-    //                             break
-    //                         case "asc":
-    //                             if (a < b) {
-    //                                 return -1
-    //                             }
-    //                             if (a > b) {
-    //                                 return 1
-    //                             }
-    //                             return 0
-    //                             break
-    //                         default:
-    //                             return 0
-    //                     }
-    //                 } else {
-    //                     return 0
-    //                 }
-    //             }),
-    //     [pairs, props.orderBy]
-    // )
-
-
-    return <></>
-}
 
 function LeftPanel() {
 
@@ -169,6 +124,8 @@ function RightPanel() {
 
 
 function Home(props: PropsHome) {
+
+
 
     return (
         <div style={{ width: "100%", height: "100%", overflowY: "hidden" }}>

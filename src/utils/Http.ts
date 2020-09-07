@@ -94,7 +94,7 @@ class Http {
     }
 
     private static mountHeaders(headerParams?: Record<string, string>): Record<string, string> {
-        const accessToken = "Bearer " + Cookies.get("acessTokenOowlish")
+        const accessToken = Cookies.get("accessTokenOowlish")
 
         if (accessToken != null) {
             return {

@@ -13,6 +13,11 @@ export type User = {
     accessToken: string
 }
 
+export type UserCredentials = {
+    username: string
+    password: string
+}
+
 export type ActivityRecord = {
     id: number
     userId: number
