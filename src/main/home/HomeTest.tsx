@@ -30,18 +30,24 @@ function UserInfo() {
     return <Box display="flex" flexDirection="row" overflow="hidden">
         <Box borderRadius="50%" overflow="hidden" p={0} >
             <Image
-                src="http://scclinicamedica.com.br/img/equipe/user.png"
-                width="130px"
+                // src="http://scclinicamedica.com.br/img/equipe/user.png"
+                src="imgs/user.svg"
+                width="100%"
                 height="100%"
             />
         </Box>
-        <Box p={1} flex={1} >
-            <Typography>{context.user?.name}</Typography>
-            <Typography> {context.user?.occupation}</Typography>
-            <Box display="flex" flexDirection="row">
-                <AccessTimeIcon />
-                <Typography> {lastWorkRecord && `Last Status: ${lastWorkRecord.activityType} - at ${lastWorkRecord.time}`}</Typography>
-            </Box>
+        <Box p={1} flex={1} style={{ display: "flex", marginLeft: "10px" }}>
+            <Grid container>
+                <Grid item xs={12}>
+                    <Typography variant="h6" style={{ fontWeight: "bold" }}>{context.user?.name}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="h6">{context.user?.occupation}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="h6"> {lastWorkRecord && `Last Registry: ${lastWorkRecord.activityType} at ${lastWorkRecord.time}`}</Typography>
+                </Grid>
+            </Grid>
         </Box>
     </Box>
 }
@@ -70,7 +76,7 @@ function Actions() {
     return <Box display="flex" flexDirection="column" flex={1} justifyContent="space-around" alignItems="center">
         <Button
             variant="contained"
-            style={{ width: "200px", backgroundColor: "green", marginBottom:10 }}
+            style={{ width: "200px", backgroundColor: "green", marginBottom: 10 }}
             title="Check-In"
             endIcon={<AlarmOn />}
             onClick={handleCheckin}
@@ -91,7 +97,7 @@ function Actions() {
 
 function ActivityTable() {
     const { workRecords } = useWorkRecords()
-    return <TableContainer component={'div'} style={{maxHeight: '50vh'}}>
+    return <TableContainer component={'div'} style={{ maxHeight: '50vh' }}>
         <Table aria-label="a dense table">
             <TableHead>
                 <TableRow>
@@ -144,10 +150,7 @@ function HomeToolbar(props: { logout: () => void }) {
 }
 
 
-export type PropsHomeTeste = {
-    logout: () => void
-}
-const HomeTeste = (props: PropsHome) => {
+function Chart() {
 
     function createData(name: string, calories: string, fat: string, carbs: string) {
         return { name, calories, fat, carbs };
@@ -200,12 +203,24 @@ const HomeTeste = (props: PropsHome) => {
         }]
     };
 
+
+
+    return <>
+        <Doughnut data={data} options={{}} legend={{ legendPosition: 'bottom' }} />
+        <Typography>Month worked hours</Typography>
+    </>
+}
+
+export type PropsHomeTeste = {
+    logout: () => void
+}
+const HomeTeste = (props: PropsHome) => {
+
     return <WorkRecordsProvider>
         <Box component={"div"} style={{ width: '100%', minHeight: '100%', display: 'flex', flexDirection: 'row', flex: 1 }}>
             <AppBar position="static">
                 <HomeToolbar logout={() => { props.logout() }} />
-
-                <Container fixed style={{ display: 'flex', flex: 1 }}>
+                <div style={{ display: 'flex', flex: 1, backgroundColor: "white" }}>
                     <Grid container style={{ height: '100%' }}>
                         <Grid item xs={12} md={6}>
                             <Box display="flex" flexDirection="column" height={'100%'} justifyContent={'space-around'} p={5}>
@@ -228,14 +243,12 @@ const HomeTeste = (props: PropsHome) => {
                                     <Grid container>
                                         <Grid xs={12} md={6} item>
                                             <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
-                                                <Doughnut data={data} options={{}} legend={{}} />
-                                                <Typography>Daily worked hours</Typography>
+                                                <Chart />
                                             </Box>
                                         </Grid>
                                         <Grid xs={12} md={6} item>
                                             <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
-                                                <Doughnut data={data} options={{}} legend={{ legendPosition: 'bottom' }} />
-                                                <Typography>Month worked hours</Typography>
+                                                <Chart />
                                             </Box>
                                         </Grid>
                                     </Grid>
@@ -246,7 +259,7 @@ const HomeTeste = (props: PropsHome) => {
                             </Box>
                         </Grid>
                     </Grid>
-                </Container>
+                </div>
             </AppBar>
         </Box>
     </WorkRecordsProvider>
