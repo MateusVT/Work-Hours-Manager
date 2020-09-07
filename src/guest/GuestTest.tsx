@@ -110,18 +110,15 @@ const GuestTest: React.FC<Props> = ({ login }) => {
     }
 
     return (
-        <Box component={'div'} display="flex" flex={1} height="100%" width="100%" bgcolor="black"
+        <Box component={'div'} display="flex" flex={1} height="100%" width="100%"
             style={{
-                backgroundImage: 'url(/imgs/guest-background.jpg)',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat'
+                backgroundColor: "#1a1a54"
             }}>
             <OwlParticle />
             <Container maxWidth="sm" component={'div'}>
                 <Box display="flex" height="100%" width="100%" flex={1} flexDirection="column" marginBottom={10}>
                     <Box display="flex" flexDirection="column" flex={2} justifyContent="center" textAlign="center">
-                        <Typography variant="h4" style={{ textAlign: "center", lineHeight: "3rem",fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
+                        <Typography variant="h4" style={{ textAlign: "center", lineHeight: "3rem", fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
                             {"Welcome collaborator!"}
                         </Typography>
                         <Typography variant="h6" style={{ textAlign: "center", marginTop: "1%", color: "white" }}>
@@ -130,7 +127,7 @@ const GuestTest: React.FC<Props> = ({ login }) => {
                     </Box>
                     <Box display="flex" flexDirection="row" flex={3} textAlign="center">
                         <Box display="flex" flex={1} flexDirection="column" justifyContent="space-around" marginBottom={30} padding={1}>
-                            
+
                             <Box display="flex" flex={2} flexDirection="column" justifyContent="space-around">
                                 <CustomInput
                                     id={"username"}

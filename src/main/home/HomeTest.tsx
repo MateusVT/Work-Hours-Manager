@@ -27,7 +27,6 @@ function UserInfo() {
     return <Box display="flex" flexDirection="row" overflow="hidden">
         <Box borderRadius="50%" overflow="hidden" p={0} >
             <Image
-                // src="http://scclinicamedica.com.br/img/equipe/user.png"
                 src="imgs/user.svg"
                 width="100%"
                 height="100%"
@@ -125,23 +124,19 @@ function HomeToolbar(props: { logout: () => void }) {
     const lastWorkRecord = last(workRecords || []) as ActivityRecord
 
 
-    return <Toolbar>
+    return <Toolbar style={{ backgroundColor: "#1a1a54" }}>
         <IconButton edge="start" style={{ marginRight: 16 }} color="inherit" aria-label="menu">
-            <MenuIcon />
+            <MenuIcon style={{ color: "white" }} />
         </IconButton>
 
         <Box component="div" display="flex" width="100%" justifyContent="space-between">
-            <Image
-                src="imgs/logo-text.png"
-                width="150px"
-                height="50%"
-            />
+
         </Box>
         <IconButton edge="end" onClick={() => {
             props.logout()
         }} style={{ marginRight: 16 }} color="inherit" aria-label="menu">
-            <Typography style={{ marginRight: "5px" }}>Exit</Typography>
-            <ExitToAppIcon />
+            <Typography style={{ marginRight: "5px", color: "white" }}>Exit</Typography>
+            <ExitToAppIcon style={{ color: "white" }} />
         </IconButton>
     </Toolbar>
 }
