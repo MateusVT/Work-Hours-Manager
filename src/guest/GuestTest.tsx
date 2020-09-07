@@ -117,7 +117,7 @@ const GuestTest: React.FC<Props> = ({ login }) => {
     return (
         <Box component={'div'} display="flex" flex={1} height="100%" width="100%"
             style={{
-                backgroundColor: "#04010e"
+                backgroundColor: "#04010e", overflow: "hidden"
             }}>
             <Container maxWidth="sm" component={'div'}>
                 <Box display="flex" height="100%" width="100%" flex={1} flexDirection="column" marginBottom={10}>
