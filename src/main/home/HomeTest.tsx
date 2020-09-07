@@ -107,7 +107,32 @@ function Actions() {
     </>
 }
 
+function ActivityTable() {
+    const { workRecords } = useWorkRecords()
+    return <TableContainer component={'div'}>
+        <Table aria-label="a dense table">
+            <TableHead>
+                <TableRow>
+                    <TableCell>Activity</TableCell>
+                    <TableCell align="right">Date</TableCell>
+                    <TableCell align="right">Time</TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {workRecords.map((row) => (
+                    <TableRow key={row.id}>
+                        <TableCell component="th" scope="row">
+                            {row.activityType}
+                        </TableCell>
+                        <TableCell align="right">{row.date}</TableCell>
+                        <TableCell align="right">{row.time}</TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    </TableContainer>
 
+}
 function HomeToolbar(props: { logout: () => void }) {
     const { workRecords } = useWorkRecords()
 
@@ -214,8 +239,6 @@ const HomeTeste = (props: PropsHome) => {
                                 </Box>
                                 <Box justifyContent="space-around" display="flex" flex={1} flexDirection="column">
                                     <Actions />
-                                    {/* <Button style={{ backgroundColor: 'green', color: 'white', margin: 3 }} variant="contained">{"Entry register"}</Button> */}
-                                    {/* <Button style={{ backgroundColor: 'rgb(96, 179, 247)', color: 'white', margin: 3 }} variant="contained">Entry register</Button> */}
                                 </Box>
                             </Box>
                         </Grid>
@@ -238,31 +261,7 @@ const HomeTeste = (props: PropsHome) => {
                                     </Grid>
                                 </Box>
                                 <Box display="flex" flex={1} flexDirection="column" justifyContent="center" p={1}>
-                                    {/*TABLE*/}
-                                    <TableContainer component={'div'}>
-                                        <Table className={classes.table} aria-label="a dense table">
-                                            <TableHead>
-                                                <TableRow>
-                                                    <TableCell>Activity</TableCell>
-                                                    <TableCell align="right">Start at</TableCell>
-                                                    <TableCell align="right">Finish at</TableCell>
-                                                    <TableCell align="right">Duration</TableCell>
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                {rows.map((row) => (
-                                                    <TableRow key={row.name}>
-                                                        <TableCell component="th" scope="row">
-                                                            {row.name}
-                                                        </TableCell>
-                                                        <TableCell align="right">{row.calories}</TableCell>
-                                                        <TableCell align="right">{row.fat}</TableCell>
-                                                        <TableCell align="right">{row.carbs}</TableCell>
-                                                    </TableRow>
-                                                ))}
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
+                                    <ActivityTable />
                                 </Box>
                             </Box>
                         </Grid>
