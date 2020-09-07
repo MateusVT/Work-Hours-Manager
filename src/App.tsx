@@ -18,7 +18,6 @@ function App() {
   const [connected, setConnected] = useState(Cookies.get("accessToken") != null);
   const [data, setData] = useState<Partial<ComponentContextData>>({})
 
-
   function handleUponLogin(user: User, keepConnected: boolean) {
     Cookies.set("accessToken", user.accessToken, !keepConnected)
     if (user) {
