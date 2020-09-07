@@ -1,18 +1,20 @@
-import { Avatar, Button, Grid, Typography } from '@material-ui/core';
-import { AccessTime, AlarmOn, LocalCafe } from '@material-ui/icons';
-import last from 'array-last';
-import Cookies from 'js-cookie';
-import { useSnackbar } from 'notistack';
-import React, { useContext, useEffect, useState } from 'react';
-import { ComponentContext } from '../../shared/ComponentContext';
-import InternalPageHeader from '../../shared/InternalPageHeader';
-import { ActivityRecord, User } from '../../types/Types';
-import Clock from '../../utils/Clock';
-import Http from '../../utils/Http';
-import { nowLocale } from '../../utils/Moment';
-import { useWorkRecords, WorkRecordsProvider } from '../../utils/WorkRecordsProvider';
-import UserImg from "../../assets/imgs/user.jpg";
-import ActivityTable from './ActivityTable';
+import { AppBar, Box, Button, Divider, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@material-ui/core";
+import { AlarmOn, LocalCafe } from "@material-ui/icons";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MailIcon from '@material-ui/icons/Mail';
+import MenuIcon from '@material-ui/icons/Menu';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import last from "array-last";
+import { useSnackbar } from "notistack";
+import React, { useContext } from "react";
+import { Doughnut } from 'react-chartjs-2';
+import { ComponentContext } from "../../shared/ComponentContext";
+import { ActivityRecord } from "../../types/Types";
+import Clock from "../../utils/Clock";
+import Image from '../../utils/Image';
+import { useWorkRecords, WorkRecordsProvider } from "../../utils/WorkRecordsProvider";
+import { PropsHome } from "./HomeOld";
+
 
 
 function UserInfo() {
@@ -21,27 +23,29 @@ function UserInfo() {
     const context = useContext(ComponentContext)
     const lastWorkRecord = last(workRecords || []) as ActivityRecord
 
-    return <Grid container style={{ width: "100%" }} >
-        <Grid item xs={4}>
-            <Avatar alt="User" style={{ width: "100px", height: "100px", boxShadow: "0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12)" }} src={UserImg} />
-        </Grid>
-        <Grid item xs={8}>
-            <Typography variant="h5">
-                {context.user?.name}
-            </Typography>
-            <Typography variant="h6">
-                {context.user?.occupation}
-            </Typography>
-            <Typography variant="subtitle1">
-                <AccessTime />
-                {lastWorkRecord && `Last Status: ${lastWorkRecord.activityType} - at ${lastWorkRecord.time}`}
-            </Typography>
-        </Grid>
-        <Grid item xs={12}>
-            <Clock />
-        </Grid>
-    </Grid>
 
+    return <Box display="flex" flexDirection="row" overflow="hidden">
+        <Box borderRadius="50%" overflow="hidden" p={0} >
+            <Image
+                src="imgs/user.svg"
+                width="100%"
+                height="100%"
+            />
+        </Box>
+        <Box p={1} flex={1} style={{ display: "flex", marginLeft: "10px" }}>
+            <Grid container>
+                <Grid item xs={12}>
+                    <Typography variant="h6" style={{ fontWeight: "bold" }}>{context.user?.name}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="h6">{context.user?.occupation}</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="h6"> {lastWorkRecord && `Last Registry: ${lastWorkRecord.activityType} at ${lastWorkRecord.time}`}</Typography>
+                </Grid>
+            </Grid>
+        </Box>
+    </Box>
 }
 
 function Actions() {
@@ -65,76 +69,191 @@ function Actions() {
 
     }
 
-    return <Grid container style={{ width: "100%" }}>
-        <Grid item xs={6}>
-            <Button
-                variant="contained"
-                style={{ width: "200px" }}
-                title="Check-In"
-                endIcon={<AlarmOn />}
-                onClick={handleCheckin}
-            >
-                Check-In
-            </Button>
-        </Grid>
-        <Grid item xs={6} >
-            <Button
-                style={{ width: "200px" }}
-                variant="contained"
-                title="Lunch"
-                endIcon={<LocalCafe />}
-                onClick={handleLunchBreak}
-            >
-                Lunch
-            </Button>
-        </Grid>
-    </Grid>
+    return <Box display="flex" flexDirection="column" flex={2} justifyContent="space-around" alignItems="center">
+        <Button
+            variant="contained"
+            style={{ width: "200px", height: "60px", backgroundColor: "green", marginBottom: 10, fontSize: "18px", fontWeight: "bold" }}
+            title="Check-In"
+            endIcon={<AlarmOn />}
+            onClick={handleCheckin}
+        >
+            {"Check-In"}
+        </Button>
+        <Button
+            style={{ width: "200px", height: "60px", backgroundColor: "red", fontSize: "18px", fontWeight: "bold" }}
+            variant="contained"
+            title="Lunch"
+            endIcon={<LocalCafe />}
+            onClick={handleLunchBreak}
+        >
+            {"Lunch"}
+        </Button>
+    </Box>
 }
 
-function LeftPanel() {
+function ActivityTable() {
+    const { workRecords } = useWorkRecords()
+    return <TableContainer component={'div'} style={{ maxHeight: '50vh' }}>
+        <Table aria-label="a dense table">
+            <TableHead>
+                <TableRow>
+                    <TableCell>Activity</TableCell>
+                    <TableCell align="right">Date</TableCell>
+                    <TableCell align="right">Time</TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {workRecords.map((row) => (
+                    <TableRow key={row.id}>
+                        <TableCell component="th" scope="row">
+                            {row.activityType}
+                        </TableCell>
+                        <TableCell align="right">{row.date}</TableCell>
+                        <TableCell align="right">{row.time}</TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    </TableContainer>
 
-    return <div style={{ width: "50%", height: "100%", backgroundColor: "red" }}>
-        <UserInfo />
-        <Actions />
-    </div>
+}
+function HomeToolbar(props: { logout: () => void }) {
+    const { workRecords } = useWorkRecords()
+    const context = useContext(ComponentContext)
+    const lastWorkRecord = last(workRecords || []) as ActivityRecord
+
+    return <Toolbar style={{ backgroundColor: "#04010e" }}>
+        <IconButton edge="start" style={{ marginRight: 16 }} color="inherit" aria-label="menu">
+            <MenuIcon style={{ color: "white" }} />
+        </IconButton>
+
+        <Box component="div" display="flex" width="100%" justifyContent="space-between">
+
+        </Box>
+        <IconButton edge="end" onClick={() => {
+            props.logout()
+        }} style={{ marginRight: 16 }} color="inherit" aria-label="menu">
+            <Typography style={{ marginRight: "5px", color: "white" }}>Exit</Typography>
+            <ExitToAppIcon style={{ color: "white" }} />
+        </IconButton>
+    </Toolbar>
 }
 
-function RightPanel() {
 
-    return <div style={{ width: "50%", height: "100%", backgroundColor: "blue" }}>
-        <ActivityTable />
-    </div>
+function Chart() {
+
+    function createData(name: string, calories: string, fat: string, carbs: string) {
+        return { name, calories, fat, carbs };
+    }
+
+    const rows = [
+        createData('Work', "08:00 AM", "11:00 AM", "04:00"),
+        createData('Launch', "11:00 AM", "02:00 PM", "03:00"),
+        createData('Work', "08:00 AM", "08:00 AM", "08:00")
+    ];
+
+    const drawer = (
+        <div>
+            <Divider />
+            <List>
+                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+            <Divider />
+            <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+        </div>
+    );
+
+    const data = {
+        labels: [
+            'Pending',
+            'Progress'
+        ],
+        datasets: [{
+            data: [300, 50],
+            backgroundColor: [
+                'rgb(96, 179, 247)',
+                'green'
+            ],
+            hoverBackgroundColor: [
+                'rgb(96, 179, 247)',
+                'green'
+            ]
+        }]
+    };
+
+
+
+    return <>
+        <Doughnut data={data} options={{}} legend={{ legendPosition: 'bottom' }} />
+        <Typography>Month worked hours</Typography>
+    </>
 }
 
-export type PropsHome = {
+export type PropsHomeTeste = {
     logout: () => void
 }
+const Home = (props: PropsHome) => {
 
-function Home(props: PropsHome) {
-    const { enqueueSnackbar } = useSnackbar();
-    const context = useContext(ComponentContext)
-    const [, updateState] = useState();
-    // const forceUpdate = React.useCallback(() => updateState({}), []);
-
-
-    useEffect(() => {
-        if (context.user) {
-            enqueueSnackbar('Welcome ' + context.user.name + '!', { variant: 'success' })
-        }
-    }, [])
-
-
-    return (
-        <WorkRecordsProvider>
-            <div style={{ width: "100%", height: "100%", overflowY: "hidden" }}>
-                <InternalPageHeader logout={() => { props.logout() }} />
-                <div style={{ width: "100%", height: "90%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <LeftPanel />
-                    <RightPanel />
+    return <WorkRecordsProvider>
+        <Box component={"div"} style={{ width: '100%', minHeight: '100%', display: 'flex', flexDirection: 'row', flex: 1 }}>
+            <AppBar position="static">
+                <HomeToolbar logout={() => { props.logout() }} />
+                <div style={{ display: 'flex', flex: 1, backgroundColor: "white" }}>
+                    <Grid container style={{ height: '100%' }}>
+                        <Grid item xs={12} md={6}>
+                            <Box display="flex" flexDirection="column" height={'100%'} justifyContent={'space-around'} p={5}>
+                                <Box flex={1} display="flex" flexDirection="column" justifyContent="center">
+                                    <UserInfo />
+                                </Box>
+                                <Box flex={1} display="flex" flexDirection="column" justifyContent="center" marginTop={5}>
+                                    <Box textAlign="center">
+                                        <Clock />
+                                        <Actions />
+                                    </Box>
+                                </Box>
+                                {/* <Box justifyContent="space-around" display="flex" flex={1} flexDirection="column" marginTop={5}>
+                                </Box> */}
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Box display="flex" flexDirection="column" height={'100%'}>
+                                <Box display="flex" flex={1} p={5}>
+                                    <Grid container>
+                                        <Grid xs={12} md={6} item>
+                                            <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
+                                                <Chart />
+                                            </Box>
+                                        </Grid>
+                                        <Grid xs={12} md={6} item>
+                                            <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
+                                                <Chart />
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                                <Box display="flex" flex={1} p={1} flexDirection="column" justifyContent="center">
+                                    <ActivityTable />
+                                </Box>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </div>
-            </div>
-        </WorkRecordsProvider>
-    );
+            </AppBar>
+        </Box>
+    </WorkRecordsProvider>
+
 }
 
-export default React.memo(Home);
+export default Home

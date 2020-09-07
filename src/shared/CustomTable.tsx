@@ -1,5 +1,3 @@
-import { IconButton } from '@material-ui/core';
-import Eye from "@material-ui/icons/RemoveRedEyeOutlined";
 import MaterialTable, { Column } from 'material-table';
 import React from 'react';
 import tableIcons from '../utils/TableIcons';

@@ -1,4 +1,4 @@
-import { AddBox, ArrowDownward, Clear, CloseOutlined, DeleteOutline, Edit, ViewColumn } from "@material-ui/icons"
+import { AddBox, ArrowDownward, Clear, DeleteOutline, Edit, ViewColumn } from "@material-ui/icons"
 import Check from "@material-ui/icons/Check"
 import ChevronLeft from "@material-ui/icons/ChevronLeft"
 import ChevronRight from "@material-ui/icons/ChevronRight"
@@ -8,7 +8,7 @@ import LastPage from "@material-ui/icons/LastPage"
 import Remove from "@material-ui/icons/Remove"
 import SaveAlt from "@material-ui/icons/SaveAlt"
 import Search from "@material-ui/icons/Search"
-import React, { useState } from "react"
+import React from "react"
 
 const tableIcons = {
     Add: React.forwardRef((props, ref) => <AddBox {...props} ref={ref as any} />),

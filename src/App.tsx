@@ -9,14 +9,10 @@ import { User } from "./types/Types";
 import Cookies from "./utils/Cookies";
 import FontsLoader from "./utils/GoogleFontLoader";
 import LoginHOC from './utils/LoginHOC';
-
-
-
 import { MainTheme } from "./utils/MaterialUiTheme";
+
 const Guest = loadable(() => import('./guest/Guest'));
-const GuestTest = loadable(() => import('./guest/GuestTest'));
 const Home = loadable(() => import('./main/home/Home'));
-const HomeTest = loadable(() => import('./main/home/HomeTest'));
 
 function App() {
   const [connected, setConnected] = useState(Cookies.get("accessToken") != null);
@@ -44,10 +40,9 @@ function App() {
           <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
             {connected ?
               <LoginHOC >
-                {/* <Home logout={handleUponLogout} /> */}
-                <HomeTest logout={handleUponLogout} />
+                <Home logout={handleUponLogout} />
               </LoginHOC>
-              : <GuestTest login={(user) => {
+              : <Guest login={(user) => {
                 handleUponLogin(user, true)
               }} />}
           </SnackbarProvider>

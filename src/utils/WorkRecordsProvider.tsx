@@ -14,8 +14,6 @@ import { useSnackbar } from 'notistack';
 interface WorkRecordsContext {
   workRecords: ActivityRecord[];
   addWorkRecord(activityType: ActivityTypes): void;
-  increment(id: string): void;
-  decrement(id: string): void;
 }
 
 const WorkRecordsContext = createContext<WorkRecordsContext | null>(null);
@@ -67,15 +65,10 @@ const WorkRecordsProvider: React.FC = ({ children }) => {
 
   }, []);
 
-  const increment = useCallback(async id => {
-  }, []);
-
-  const decrement = useCallback(async id => {
-  }, []);
 
   const value = React.useMemo(
-    () => ({ addWorkRecord, increment, decrement, workRecords }),
-    [workRecords, addWorkRecord, increment, decrement],
+    () => ({ addWorkRecord, workRecords }),
+    [workRecords, addWorkRecord],
   );
 
   return <WorkRecordsContext.Provider value={value}>{children}</WorkRecordsContext.Provider>;

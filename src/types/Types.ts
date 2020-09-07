@@ -28,7 +28,4 @@ export type ActivityRecord = {
 
 export type ActivityTypes = "Arriving" | "Exiting" | "Lunch Break"
 
-export type WorkShifts = {
-    enteringTime: string
-    exitTime: string
-}
+

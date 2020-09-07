@@ -12,13 +12,10 @@ type Props = {
     inputType: string
     variant?: "standard" | "filled" | "outlined"
     placeholder?: string
-    parentProperties?: any
     onChange: (attribute: string, value: string, invalid?: boolean, valid?: boolean) => void
     value?: any
     inputProps?: any
     type?: any
-    toolTipText?: string
-    toolTipPosition?: Popper.Placement
     mask?: string
     maxLength: number
 }
@@ -75,7 +72,6 @@ function CustomInput(props: Props) {
                 }
                 InputProps={{ inputProps }}
                 variant="outlined"
-                // variant={variant || "outlined"}
                 InputLabelProps={{ shrink: true }}
                 label={label}
                 disabled={disabled}

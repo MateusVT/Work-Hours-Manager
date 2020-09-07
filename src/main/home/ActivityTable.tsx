@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import CustomTable from '../../shared/CustomTable'
-import { useWorkRecords, WorkRecordsProvider } from '../../utils/WorkRecordsProvider';
+import CustomTable from '../../shared/CustomTable';
+import { useWorkRecords } from '../../utils/WorkRecordsProvider';
 
 export default function ActivityTable() {
     const { workRecords } = useWorkRecords()
