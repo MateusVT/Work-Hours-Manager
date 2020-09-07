@@ -14,6 +14,7 @@ import LoginHOC from './utils/LoginHOC';
 
 import { MainTheme } from "./utils/MaterialUiTheme";
 const Guest = loadable(() => import('./guest/Guest'));
+const GuestTest = loadable(() => import('./guest/GuestTest'));
 const Home = loadable(() => import('./main/home/Home'));
 const HomeTest = loadable(() => import('./main/home/HomeTest'));
 
@@ -46,7 +47,7 @@ function App() {
                 {/* <Home logout={handleUponLogout} /> */}
                 <HomeTest logout={handleUponLogout} />
               </LoginHOC>
-              : <Guest login={(user) => {
+              : <GuestTest login={(user) => {
                 handleUponLogin(user, true)
               }} />}
           </SnackbarProvider>

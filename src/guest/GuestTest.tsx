@@ -6,12 +6,13 @@ import { ComponentContext } from '../shared/ComponentContext';
 import Http from '../utils/Http';
 import { User } from '../types/Types';
 import Cookies from 'js-cookie';
+import Particles from 'react-particles-js';
 
 type Props = {
-    login: (user: User, keepConnected: boolean)=>void
+    login: (user: User, keepConnected: boolean) => void
 }
 
-const GuestTest: React.FC<Props> = ({login}) => {
+const GuestTest: React.FC<Props> = ({ login }) => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const { enqueueSnackbar } = useSnackbar();
@@ -39,18 +40,56 @@ const GuestTest: React.FC<Props> = ({login}) => {
     return (
         <Box component={'div'} display="flex" flex={1} height="100%" width="100%" bgcolor="black"
             style={{
-                backgroundImage: 'url(/imgs/guest-background.jpg)', 
+                backgroundImage: 'url(/imgs/guest-background.jpg)',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat'
             }}>
+            <Particles
+                width="20%" height="20%"
+                style={{
+                    position: "absolute",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    left: 0,
+                    right: 0,
+                    textAlign: "center"
+                }}
+                params={{
+                    polygon: {
+                        enable: true,
+                        type: "inside" as any,
+                        move: {
+                            radius: 10
+                        },
+                        url: '/imgs/owl.svg'
+                    }
+                }} />
+            {/* <Particles style={{ position: "absolute" }} params={{
+                "particles": {
+                    "number": {
+                        "value": 50
+                    },
+                    "size": {
+                        "value": 3
+                    }
+                },
+                "interactivity": {
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        }
+                    }
+                }
+            }} width="100%" height="100%" /> */}
             <Container maxWidth="md" component={'div'} style={{/*backgroundColor: 'blue'*/ }}>
                 <Box display="flex" flex={1} height="100%" width="100%" flexDirection="column" style={{ /*backgroundColor: 'pink'*/ }}>
                     <Box display="flex" flexDirection="column" flex={1} justifyContent="center" textAlign="center">
-                        <Typography style={{ textAlign: "center", marginTop: "3%", lineHeight: "3rem", fontSize: 32, fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
+                        <Typography variant="h4" style={{ textAlign: "center", marginTop: "3%", lineHeight: "3rem", fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
                             {"Welcome collaborator!"}
                         </Typography>
-                        <Typography style={{ textAlign: "center", marginTop: "1%", fontSize: 18, color: "white" }}>
+                        <Typography variant="h6" style={{ textAlign: "center", marginTop: "1%", color: "white" }}>
                             {"We will help you to manage and register your workday."}<br />
                         </Typography>
                     </Box>
@@ -103,7 +142,7 @@ const GuestTest: React.FC<Props> = ({login}) => {
                                 <Button color="primary"
                                     style={{
                                         fontSize: 20,
-                                        borderRadius: "5px", 
+                                        borderRadius: "5px",
                                         width: "80%",
                                         padding: 15
                                     }}

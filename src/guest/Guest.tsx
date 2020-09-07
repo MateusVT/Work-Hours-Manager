@@ -146,7 +146,7 @@ const Guest = (props: PropsGuest) => {
                         <LoginCard login={props.login} />
                     </Grid>
                 </Grid>
-                <Particles params={{
+                {/* <Particles params={{
                     "particles": {
                         "number": {
                             "value": 50
@@ -163,7 +163,7 @@ const Guest = (props: PropsGuest) => {
                             }
                         }
                     }
-                }} width="100%" height="100%" />
+                }} width="100%" height="100%" /> */}
 
             </div >
         );
