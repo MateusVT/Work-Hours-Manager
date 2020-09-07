@@ -1,23 +1,22 @@
 import loadable from '@loadable/component';
 import { MuiThemeProvider } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { SnackbarProvider, useSnackbar } from 'notistack';
-import React, { useState, useContext, useEffect } from "react";
+import { SnackbarProvider } from 'notistack';
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { User, ActivityRecord } from "./types/Types";
+import { ComponentContextData, ComponentContextProvider } from './shared/ComponentContext';
+import { User } from "./types/Types";
 import Cookies from "./utils/Cookies";
 import FontsLoader from "./utils/GoogleFontLoader";
+import LoginHOC from './utils/LoginHOC';
 import { MainTheme } from "./utils/MaterialUiTheme";
-import { ComponentContextProvider, ComponentContextData, ComponentContext } from './shared/ComponentContext';
-import Http from './utils/Http';
-import { nowLocale } from './utils/Moment';
-import { WorkRecordsProvider } from './utils/WorkRecordsProvider';
+// import { LoginHOC } from './utils/LoginHOC';
 const Guest = loadable(() => import('./guest/Guest'));
-const Home = loadable(() => import('./main/Home'));
+const Home = loadable(() => import('./main/home/Home'));
+const HomeTest = loadable(() => import('./main/home/HomeTest'));
 
 function App() {
   const [connected, setConnected] = useState(Cookies.get("accessTokenOowlish") != null);
-  const [userInfos, setUserInfos] = useState<User | null>(null);
   const [data, setData] = useState<Partial<ComponentContextData>>({})
 
 
@@ -41,7 +40,10 @@ function App() {
           <CssBaseline />
           <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
             {connected ?
-              <Home logout={handleUponLogout} />
+              <LoginHOC >
+                <Home logout={handleUponLogout} />
+                {/* <HomeTest /> */}
+              </LoginHOC>
               : <Guest login={(user) => {
                 handleUponLogin(user, true)
               }} />}

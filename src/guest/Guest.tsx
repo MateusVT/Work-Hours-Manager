@@ -32,21 +32,9 @@ function LoginCard(props: PropsGuest) {
                 },
                 onSuccess: (users: User[]) => {
                     const user = users[0]
-                    console.log(user)
-                    Http.get({
-                        path: `/work-records?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
-                        onError: (error: string) => {
-                            console.log(error)
-                            enqueueSnackbar('Invalid username', { variant: 'error' })
-                        },
-                        onSuccess: (activities: ActivityRecord[]) => {
-
-                            props.login(user)
-                            context.user = user
-                            enqueueSnackbar('Welcome ' + user.name + '!', { variant: 'success' })
-                            context.workRecords = activities
-                        }
-                    })
+                    props.login(user)
+                    context.user = user
+                    enqueueSnackbar('Welcome ' + user.name + '!', { variant: 'success' })
                 }
             })
         }

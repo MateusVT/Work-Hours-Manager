@@ -2,7 +2,7 @@ import React from "react"
 import { User, ActivityRecord } from "../types/Types"
 export type ComponentContextData = {
 	user: User //Fullfill this objetct with user infos here.
-	workRecords: ActivityRecord[] //Fullfill this objetct with user infos here.
+	// workRecords: ActivityRecord[] //Fullfill this objetct with user infos here.
 	// showAlertDialog: (title: string, message: string, buttons?: {text:string, action: ()=>void}[])=>void,
 }
 

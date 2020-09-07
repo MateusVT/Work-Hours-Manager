@@ -5,7 +5,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { MuiThemeProvider, Box, AppBar, Toolbar, IconButton, Typography, Button, makeStyles, Container, Grid, Paper, Divider, List, ListItem, ListItemIcon, ListItemText, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core";
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import Image from '../utils/Image';
+import Image from '../../utils/Image';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { Doughnut, ChartData } from 'react-chartjs-2';
 

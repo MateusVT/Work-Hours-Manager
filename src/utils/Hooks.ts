@@ -44,8 +44,6 @@ export function useFetchAll(endpoints: Endpoint[], deps: DependencyList) {
     }, deps)
 }
 
-
-
 export function useDelayedState<S>(initialState: S | (() => S), delay: number): [S, Dispatch<S>, S, Dispatch<S>] {
     const [value, set] = useState<S>(initialState)
     const [delayedValue, setDelayed] = useState<S>(initialState)
@@ -65,7 +63,6 @@ export function useDelayedState<S>(initialState: S | (() => S), delay: number): 
 
     return [value, setValue, delayedValue, setDelayedValue]
 }
-
 
 export function useFromNow(moment: Moment, updateInterval?: number) {
     const [str, setStr] = useState(moment.fromNow())

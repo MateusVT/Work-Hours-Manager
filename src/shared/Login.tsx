@@ -38,7 +38,7 @@ function Login(props: LoginProps) {
                     // props.login(user)
                     context.user = user
                     enqueueSnackbar('Welcome ' + user.name + '!', { variant: 'success' })
-                    context.workRecords = activities
+                    // context.workRecords = activities
                 }
             })
         }

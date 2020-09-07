@@ -83,7 +83,7 @@ function useWorkRecords(): WorkRecordsContext {
   const context = useContext(WorkRecordsContext);
 
   if (!context) {
-    throw new Error(`useWorkRecords must be used within a WorkRecordsProvider`);
+    throw new Error(`useWorkRecords() must be used within a WorkRecordsProvider`);
   }
 
   return context;

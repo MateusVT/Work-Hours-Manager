@@ -1,33 +1,25 @@
-import React, { useState, useMemo, useContext, useEffect } from 'react';
-import InternalPageHeader from '../shared/InternalPageHeader';
-import { User, Pair, ActivityRecord } from '../types/Types';
-import UserImg from "../assets/imgs/user.jpg";
-import { Button, Avatar, Grid, Typography, IconButton } from '@material-ui/core';
-import { AlarmOn, LocalCafe } from '@material-ui/icons';
-import { AccessTime } from '@material-ui/icons';
-import Clock from '../utils/Clock';
-import Table from '../shared/Table';
-import { Doughnut } from 'react-chartjs-2';
-import Http from '../utils/Http';
-import { now } from 'moment';
-import { loadAbsoluteMoment, loadMoment, nowLocale } from '../utils/Moment';
-import { useSnackbar } from 'notistack';
-import registerActivity from '../shared/RegistryHandler';
-import { ComponentContext } from '../shared/ComponentContext';
+import { Avatar, Button, Grid, Typography } from '@material-ui/core';
+import { AccessTime, AlarmOn, LocalCafe } from '@material-ui/icons';
 import last from 'array-last';
 import Cookies from 'js-cookie';
-import { useWorkRecords, WorkRecordsProvider } from '../utils/WorkRecordsProvider';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect, useState } from 'react';
+import { ComponentContext } from '../../shared/ComponentContext';
+import InternalPageHeader from '../../shared/InternalPageHeader';
+import { ActivityRecord, User } from '../../types/Types';
+import Clock from '../../utils/Clock';
+import Http from '../../utils/Http';
+import { nowLocale } from '../../utils/Moment';
+import { useWorkRecords, WorkRecordsProvider } from '../../utils/WorkRecordsProvider';
+import UserImg from "../../assets/imgs/user.jpg";
+import ActivityTable from './ActivityTable';
 
-
-
-export type PropsHome = {
-    logout: () => void
-};
 
 function UserInfo() {
+    const { workRecords } = useWorkRecords()
 
     const context = useContext(ComponentContext)
-    const lastWorkRecord = last(context.workRecords || []) as ActivityRecord
+    const lastWorkRecord = last(workRecords || []) as ActivityRecord
 
     return <Grid container style={{ width: "100%" }} >
         <Grid item xs={4}>
@@ -99,18 +91,6 @@ function Actions() {
     </Grid>
 }
 
-function ActivityTable() {
-    const { workRecords } = useWorkRecords()
-
-    const columns = [
-        { title: 'Activity', field: 'activityType' },
-        { title: 'Date', field: 'date' },
-        { title: 'Time', field: 'time' }
-    ]
-    return <Table title={"Today's Records"} pageSize={10} columns={columns} items={workRecords} />
-}
-
-
 function LeftPanel() {
 
     return <div style={{ width: "50%", height: "100%", backgroundColor: "red" }}>
@@ -123,46 +103,23 @@ function RightPanel() {
 
     return <div style={{ width: "50%", height: "100%", backgroundColor: "blue" }}>
         <ActivityTable />
-
     </div>
 }
 
-
+export type PropsHome = {
+    logout: () => void
+}
 
 function Home(props: PropsHome) {
     const { enqueueSnackbar } = useSnackbar();
-    const [user, setUser] = useState("en");
     const context = useContext(ComponentContext)
     const [, updateState] = useState();
     const forceUpdate = React.useCallback(() => updateState({}), []);
 
 
     useEffect(() => {
-        if (!context.user) {
-            Http.get({
-                path: `/users?accessToken=${Cookies.get("accessTokenOowlish")}`,
-                onError: (error: string) => {
-                    console.log(error)
-                    enqueueSnackbar('Invalid username', { variant: 'error' })
-                },
-                onSuccess: (users: User[]) => {
-                    const user = users[0]
-                    console.log(user)
-                    Http.get({
-                        path: `/work-records?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
-                        onError: (error: string) => {
-                            console.log(error)
-                            enqueueSnackbar('Invalid username', { variant: 'error' })
-                        },
-                        onSuccess: (activities: ActivityRecord[]) => {
-                            context.user = user
-                            context.workRecords = activities
-                            enqueueSnackbar('Welcome ' + user.name + '!', { variant: 'success' })
-                            forceUpdate()
-                        }
-                    })
-                }
-            })
+        if (context.user) {
+            enqueueSnackbar('Welcome ' + context.user.name + '!', { variant: 'success' })
         }
     }, [])
 

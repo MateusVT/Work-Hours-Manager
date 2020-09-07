@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react';
-import { Grid, Toolbar, Avatar, Typography, IconButton } from '@material-ui/core';
-import { AccountCircle, ExitToApp } from '@material-ui/icons';
-// import Image from 'material-ui-image'
+import { Grid, IconButton, Typography } from '@material-ui/core';
+import { ExitToApp } from '@material-ui/icons';
+import React from 'react';
 import Image from '../utils/Image';
 
 
