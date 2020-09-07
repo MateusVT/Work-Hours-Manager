@@ -16,7 +16,7 @@ const LoginHOC = ({ children }: any) => {
   useEffect(() => {
     async function auth(): Promise<void> {
       Http.get({
-        path: `/users?accessToken=${Cookies.get("accessTokenOowlish")}`,
+        path: `/users?accessToken=${Cookies.get("accessToken")}`,
         onError: (error: string) => {
           console.log(error)
           enqueueSnackbar('Invalid username', { variant: 'error' })

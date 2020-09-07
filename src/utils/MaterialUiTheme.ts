@@ -9,11 +9,8 @@ const MainTheme = createMuiTheme({
             main: "#e6e6e6"
         }
     },
-    typography: {
-        fontFamily: 'Playfair Display, sans-serif',
-    },
-    overrides: {
 
+    overrides: {
         MuiDrawer: {
             paper:
             {
@@ -21,11 +18,8 @@ const MainTheme = createMuiTheme({
             }
         },
         MuiButton: {
-
             label: {
-                fontFamily: "Playfair Display, sans-serif",
                 fontWeight: "normal"
-
             }
         }
     }

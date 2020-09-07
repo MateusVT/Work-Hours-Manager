@@ -25,7 +25,7 @@ function LoginCard(props: PropsGuest) {
         if (username.trim().length > 0 && password.trim().length > 0) {
 
             Http.get({
-                path: accessToken ? `/users?accessToken=${Cookies.get("accessTokenOowlish")}` : `/users?username=${username}&password=${password}`,
+                path: accessToken ? `/users?accessToken=${Cookies.get("accessToken")}` : `/users?username=${username}&password=${password}`,
                 onError: (error: string) => {
                     console.log(error)
                     enqueueSnackbar('Invalid username', { variant: 'error' })
@@ -123,10 +123,8 @@ const Guest = (props: PropsGuest) => {
                 <Grid container>
                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                         <Typography style={{ textAlign: "center", marginTop: "3%", lineHeight: "3vw", fontSize: "2.5vw", fontWeight: "bold", color: "white", fontFamily: 'Playfair Display, sans-serif' }}>
-                            Welcome
-                            <br />
-                            Oowlish collaborator!
-                    </Typography>
+                            Welcome collaborator!
+                        </Typography>
                         <Typography style={{ textAlign: "center", marginTop: "1%", fontSize: "1.2vw", color: "white" }}>
                             {"We will help you to manage and register your workday."}<br />
                         </Typography>

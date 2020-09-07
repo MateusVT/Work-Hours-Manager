@@ -1,10 +1,4 @@
-import "moment/locale/pt-br"
-
 import * as momentjs from "moment"
-
-function configureMomentjs() {
-	momentjs.locale("pt-BR")
-}
 
 function loadAbsoluteMoment(moment: string | number | Date, format?: momentjs.MomentFormatSpecification) {
 	return momentjs.utc(moment, format)
@@ -28,4 +22,4 @@ function nowLocale() {
 
 export type Moment = momentjs.Moment
 
-export { configureMomentjs, loadAbsoluteMoment, loadDuration, loadMoment, now, nowLocale }
+export { loadAbsoluteMoment, loadDuration, loadMoment, now, nowLocale }

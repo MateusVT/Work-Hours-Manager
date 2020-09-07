@@ -10,24 +10,23 @@ import Cookies from "./utils/Cookies";
 import FontsLoader from "./utils/GoogleFontLoader";
 import LoginHOC from './utils/LoginHOC';
 import { MainTheme } from "./utils/MaterialUiTheme";
-// import { LoginHOC } from './utils/LoginHOC';
 const Guest = loadable(() => import('./guest/Guest'));
 const Home = loadable(() => import('./main/home/Home'));
 const HomeTest = loadable(() => import('./main/home/HomeTest'));
 
 function App() {
-  const [connected, setConnected] = useState(Cookies.get("accessTokenOowlish") != null);
+  const [connected, setConnected] = useState(Cookies.get("accessToken") != null);
   const [data, setData] = useState<Partial<ComponentContextData>>({})
 
 
   function handleUponLogin(user: User, keepConnected: boolean) {
-    Cookies.set("accessTokenOowlish", user.accessToken, !keepConnected)
+    Cookies.set("accessToken", user.accessToken, !keepConnected)
     if (user) {
       setConnected(true)
     }
   }
   function handleUponLogout() {
-    Cookies.set("accessTokenOowlish", null)
+    Cookies.set("accessToken", null)
     window.location.reload()
     setConnected(false)
   }
@@ -41,8 +40,8 @@ function App() {
           <SnackbarProvider maxSnack={3} autoHideDuration={2000} anchorOrigin={{ horizontal: "right", vertical: "bottom" }} >
             {connected ?
               <LoginHOC >
-                <Home logout={handleUponLogout} />
-                {/* <HomeTest /> */}
+                {/* <Home logout={handleUponLogout} /> */}
+                <HomeTest logout={handleUponLogout} />
               </LoginHOC>
               : <Guest login={(user) => {
                 handleUponLogin(user, true)

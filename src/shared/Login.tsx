@@ -19,7 +19,7 @@ function Login(props: LoginProps) {
 
     // if (username.trim().length > 0 && password.trim().length > 0) {
     Http.get({
-        path: accessToken ? `/users?accessToken=${Cookies.get("accessTokenOowlish")}` : `/users?username=${username}&password=${password}`,
+        path: accessToken ? `/users?accessToken=${Cookies.get("accessToken")}` : `/users?username=${username}&password=${password}`,
         onError: (error: string) => {
             console.log(error)
             enqueueSnackbar('Invalid username', { variant: 'error' })
