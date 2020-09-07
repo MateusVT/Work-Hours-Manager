@@ -26,22 +26,23 @@ const WorkRecordsProvider: React.FC = ({ children }) => {
   const { user } = context
   const { enqueueSnackbar } = useSnackbar();
 
+  async function loadWorkRecords(): Promise<void> {
+    console.log("user", user)
+    if (!user) return
+    Http.get({
+      path: `/work-records?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
+      onError: (error: string) => {
+        console.log("error", error)
+        enqueueSnackbar('Invalid username', { variant: 'error' })
+      },
+      onSuccess: (activities: ActivityRecord[]) => {
+        console.log("load", activities)
+        setWorkRecords(activities)
+      }
+    })
+  }
+
   useEffect(() => {
-    async function loadWorkRecords(): Promise<void> {
-      console.log("user", user)
-      if (!user) return
-      Http.get({
-        path: `/work-records?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
-        onError: (error: string) => {
-          console.log("error", error)
-          enqueueSnackbar('Invalid username', { variant: 'error' })
-        },
-        onSuccess: (activities: ActivityRecord[]) => {
-          console.log(activities)
-          setWorkRecords(activities)
-        }
-      })
-    }
     loadWorkRecords();
   }, []);
 
@@ -52,13 +53,14 @@ const WorkRecordsProvider: React.FC = ({ children }) => {
       body: {
         "userId": user.id,
         "date": nowLocale().format("YYYY/MM/DD"),
-        "time": nowLocale().format("LT"),
+        "time": nowLocale().format("HH:mm"),
         "activityType": activityType
       },
       onError: (error: string) => {
-        console.log(error)
+        console.log("error", error)
       },
       onSuccess: (response: any) => {
+        loadWorkRecords();
         enqueueSnackbar('Checkin Registered!', { variant: 'success' })
       }
     })

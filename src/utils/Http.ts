@@ -36,7 +36,7 @@ class Http {
                 if (response.headers && response.headers.has('Content-Type')
                     && re.test(response.headers.get('Content-Type')!)) {
                     response.text().then(text => {
-                        if (status === 200)
+                        if (status === 200 || status === 201)
                             callbacks.onSuccess(text as any)
                         else
                             callbacks.onError(text as any)
@@ -57,7 +57,7 @@ class Http {
                                 return
                             }
 
-                            if (status === 200) {
+                            if (status === 200 || status === 201) {
                                 callbacks.onSuccess(json as E)
                             } else {
                                 callbacks.onError(json.message !== undefined ? json.message : json)
