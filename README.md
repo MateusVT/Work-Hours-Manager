@@ -58,6 +58,7 @@ Access [http://localhost.com:3000](http://localhost.com:3000)
 All Set!
 
 ![alt tag](https://github.com/MateusVT/Work-Hours-Manager/blob/master/public/imgs/login.jpg)
+![alt tag](https://github.com/MateusVT/Work-Hours-Manager/blob/master/public/imgs/home.jpg)
 ![alt tag](https://github.com/MateusVT/Work-Hours-Manager/blob/master/public/imgs/home-mobile.jpg)
 
 You should be able to use the application now!

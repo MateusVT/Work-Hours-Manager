@@ -140,21 +140,7 @@ function HomeToolbar(props: { logout: () => void }) {
 }
 
 
-function ChartMonthlyInvoke() {
-    const { workRecords } = useWorkRecords()
-    const colors = ["red", "blue"]
-    return <Chart<number>
-        min={0}
-        max={100}
-        fetchColor={type => colors[[10, 20].indexOf(type)]}
-        fetchLegend={type => type.toString()}
-        fetchValue={type => 10}
-        items={[10, 20]}
-        title="Monthly Worked Hours"
-        legendPosition={"bottom"}
-        type={"doughnut"}
-    />
-}
+
 
 function ChartWeeklyInvoke() {
     const { weeklyWorkReport } = useWorkRecords()
@@ -164,7 +150,7 @@ function ChartWeeklyInvoke() {
         "#e7ff7b",
         "#0088d9",
         "#bff47f",
-        "#ffe9ff",
+        "#f74a4a",
         "#bcfa9e",
         "#496956",
         "#ffc3ba"
@@ -209,14 +195,9 @@ const Home = (props: PropsHome) => {
                         </Box>
                         <Box component={Paper} margin={1} display="flex" flex={1} p={4}>
                             <Grid container>
-                                <Grid xs={12} md={6} item>
+                                <Grid xs={12} item>
                                     <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
                                         <ChartWeeklyInvoke />
-                                    </Box>
-                                </Grid>
-                                <Grid xs={12} md={6} item>
-                                    <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
-                                        <ChartMonthlyInvoke />
                                     </Box>
                                 </Grid>
                             </Grid>
