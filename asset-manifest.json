@@ -1,0 +1,34 @@
+{
+  "files": {
+    "static/js/0.7e7e02ba.chunk.js": "/work-hours-manager/static/js/0.7e7e02ba.chunk.js",
+    "static/js/0.7e7e02ba.chunk.js.map": "/work-hours-manager/static/js/0.7e7e02ba.chunk.js.map",
+    "main.css": "/work-hours-manager/static/css/main.7218e18a.chunk.css",
+    "main.js": "/work-hours-manager/static/js/main.a12694c3.chunk.js",
+    "main.js.map": "/work-hours-manager/static/js/main.a12694c3.chunk.js.map",
+    "runtime-main.js": "/work-hours-manager/static/js/runtime-main.999d0284.js",
+    "runtime-main.js.map": "/work-hours-manager/static/js/runtime-main.999d0284.js.map",
+    "static/js/3.08ec0b29.chunk.js": "/work-hours-manager/static/js/3.08ec0b29.chunk.js",
+    "static/js/3.08ec0b29.chunk.js.map": "/work-hours-manager/static/js/3.08ec0b29.chunk.js.map",
+    "static/js/4.6b3b33e9.chunk.js": "/work-hours-manager/static/js/4.6b3b33e9.chunk.js",
+    "static/js/4.6b3b33e9.chunk.js.map": "/work-hours-manager/static/js/4.6b3b33e9.chunk.js.map",
+    "static/js/5.b0de5b4a.chunk.js": "/work-hours-manager/static/js/5.b0de5b4a.chunk.js",
+    "static/js/5.b0de5b4a.chunk.js.map": "/work-hours-manager/static/js/5.b0de5b4a.chunk.js.map",
+    "static/js/6.995a1e96.chunk.js": "/work-hours-manager/static/js/6.995a1e96.chunk.js",
+    "static/js/6.995a1e96.chunk.js.map": "/work-hours-manager/static/js/6.995a1e96.chunk.js.map",
+    "static/js/7.25a597c9.chunk.js": "/work-hours-manager/static/js/7.25a597c9.chunk.js",
+    "static/js/7.25a597c9.chunk.js.map": "/work-hours-manager/static/js/7.25a597c9.chunk.js.map",
+    "index.html": "/work-hours-manager/index.html",
+    "precache-manifest.1463f13dfbbe6f6d2cabf6d59130862c.js": "/work-hours-manager/precache-manifest.1463f13dfbbe6f6d2cabf6d59130862c.js",
+    "service-worker.js": "/work-hours-manager/service-worker.js",
+    "static/css/main.7218e18a.chunk.css.map": "/work-hours-manager/static/css/main.7218e18a.chunk.css.map",
+    "static/js/3.08ec0b29.chunk.js.LICENSE.txt": "/work-hours-manager/static/js/3.08ec0b29.chunk.js.LICENSE.txt",
+    "static/js/4.6b3b33e9.chunk.js.LICENSE.txt": "/work-hours-manager/static/js/4.6b3b33e9.chunk.js.LICENSE.txt",
+    "static/js/5.b0de5b4a.chunk.js.LICENSE.txt": "/work-hours-manager/static/js/5.b0de5b4a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.999d0284.js",
+    "static/js/5.b0de5b4a.chunk.js",
+    "static/css/main.7218e18a.chunk.css",
+    "static/js/main.a12694c3.chunk.js"
+  ]
+}
