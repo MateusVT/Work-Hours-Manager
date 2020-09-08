@@ -5,43 +5,66 @@ import React, {
   useContext,
   useEffect,
 } from 'react';
-import { ActivityRecord, ActivityTypes } from '../types/Types';
+import { ActivityRecord, ActivityTypes, TodayWorkReport } from '../types/Types';
 import Http from './Http';
+import last from "array-last";
 import { ComponentContext } from '../shared/ComponentContext';
-import { nowLocale } from './Moment';
+import { nowLocale, Moment, loadMoment } from './Moment';
 import { useSnackbar } from 'notistack';
 
 interface WorkRecordsContext {
   workRecords: ActivityRecord[];
+  todayWorkReport?: TodayWorkReport;
+  todayWorkRecords: ActivityRecord[];
+  lastWorkRecord?: ActivityRecord;
   addWorkRecord(activityType: ActivityTypes): void;
+  loadWorkRecordsByDate(date: Moment): void;
 }
 
 const WorkRecordsContext = createContext<WorkRecordsContext | null>(null);
 
 const WorkRecordsProvider: React.FC = ({ children }) => {
   const [workRecords, setWorkRecords] = useState<ActivityRecord[]>([]);
+  const [todayWorkRecords, setTodayWorkRecords] = useState<ActivityRecord[]>([]);
+  const [lastWorkRecord, setLastWorkRecord] = useState<ActivityRecord>();
+  const [todayWorkReport, setTodayWorkReport] = useState<TodayWorkReport>();
   const context = useContext(ComponentContext)
   const { user } = context
   const { enqueueSnackbar } = useSnackbar();
 
-  async function loadWorkRecords(): Promise<void> {
-    console.log("user", user)
+  async function loadWorkRecords(date?: Moment): Promise<void> {
     if (!user) return
     Http.get({
-      path: `/work-records?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
+      path: `/work-records?userId=${user.id}&date=${date ? date.format("YYYY/MM/DD") : nowLocale().format("YYYY/MM/DD")}`,
       onError: (error: string) => {
         console.log("error", error)
-        enqueueSnackbar('Invalid username', { variant: 'error' })
+        enqueueSnackbar('Request Error', { variant: 'error' })
       },
       onSuccess: (activities: ActivityRecord[]) => {
-        console.log("load", activities)
         setWorkRecords(activities)
+        !date && setLastWorkRecord(last(activities))
+        !date && setTodayWorkRecords(activities)
+      }
+    })
+  }
+
+  async function loadTodayReport(): Promise<void> {
+    if (!user) return
+    Http.get({
+      path: `/daily-work-report?userId=${user.id}&date=${nowLocale().format("YYYY/MM/DD")}`,
+      onError: (error: string) => {
+        console.log("error", error)
+        enqueueSnackbar('Request Error', { variant: 'error' })
+      },
+      onSuccess: (dailyReport: TodayWorkReport[]) => {
+        setTodayWorkReport(dailyReport[0])
       }
     })
   }
 
   useEffect(() => {
     loadWorkRecords();
+    loadTodayReport()
   }, []);
 
   const addWorkRecord = useCallback(async (activityType: ActivityTypes) => {
@@ -59,16 +82,20 @@ const WorkRecordsProvider: React.FC = ({ children }) => {
       },
       onSuccess: (response: any) => {
         loadWorkRecords();
-        enqueueSnackbar('Checkin Registered!', { variant: 'success' })
+        enqueueSnackbar(activityType + ' Registered!', { variant: 'success' })
       }
     })
 
   }, []);
 
+  const loadWorkRecordsByDate = useCallback(async (date: Moment) => {
+    loadWorkRecords(date);
+  }, []);
+
 
   const value = React.useMemo(
-    () => ({ addWorkRecord, workRecords }),
-    [workRecords, addWorkRecord],
+    () => ({ addWorkRecord, workRecords, loadWorkRecordsByDate, lastWorkRecord, todayWorkRecords, todayWorkReport }),
+    [workRecords, addWorkRecord, loadWorkRecordsByDate, lastWorkRecord, todayWorkRecords, todayWorkReport],
   );
 
   return <WorkRecordsContext.Provider value={value}>{children}</WorkRecordsContext.Provider>;

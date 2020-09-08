@@ -12,67 +12,35 @@
   ],
   "work-records": [
     {
-      "id": 1,
       "userId": 1,
-      "date": "2020/09/07",
-      "time": "07:30",
-      "activityType": "Arriving"
-    },
-    {
-      "id": 2,
-      "userId": 1,
-      "date": "2020/09/07",
-      "time": "09:30",
-      "activityType": "Lunch Break"
-    },
-    {
-      "id": 3,
-      "userId": 1,
-      "date": "2020/09/07",
-      "time": "09:45",
-      "activityType": "Lunch Break"
-    },
-    {
-      "id": 4,
-      "userId": 1,
-      "date": "2020/09/07",
-      "time": "12:00",
-      "activityType": "Exiting"
-    },
-    {
-      "id": 5,
-      "userId": 1,
-      "date": "2020/09/07",
-      "time": "13:00",
-      "activityType": "Entering"
-    },
-    {
-      "id": 6,
-      "userId": 1,
-      "date": "2020/09/07",
-      "time": "15:00",
-      "activityType": "Lunch Break"
-    },
-    {
-      "id": 7,
-      "userId": 1,
-      "date": "2020/09/07",
-      "time": "15:15",
-      "activityType": "Lunch Break"
-    },
-    {
-      "id": 8,
-      "userId": 1,
-      "date": "2020/09/07",
-      "time": "18:00",
-      "activityType": "Exiting"
+      "date": "2020/09/08",
+      "time": "02:26",
+      "activityType": "Arriving",
+      "id": 1
     },
     {
       "userId": 1,
-      "date": "2020/09/07",
-      "time": "11:10",
-      "activityType": "Lunch Break",
-      "id": 9
+      "date": "2020/09/08",
+      "time": "02:50",
+      "activityType": "Exiting",
+      "id": 2
+    }
+  ],
+  "daily-work-report": [
+    {
+      "userId": 1,
+      "date": "2020/09/08",
+      "totalHoursWorked": "04:30"
+    }
+  ],
+  "weekly-work-report": [
+    {
+      "userId": 1,
+      "startDate": "2020/09/08",
+      "endDate": "2020/09/08",
+      "totalHoursWorked": "06:34",
+      "totalMissingHours": "06:34",
+      "totalExtraHours": "06:34"
     }
   ]
 }

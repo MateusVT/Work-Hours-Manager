@@ -16,7 +16,6 @@ export default function registerActivity(activityType: ActivityTypes, userId: nu
             console.log(error)
         },
         onSuccess: (response: any) => {
-            console.log(response)
             Http.get({
                 path: `/work-records?userId=${userId}&date=${nowLocale().format("YYYY/MM/DD")}`,
                 onError: (error: string) => {
