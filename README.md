@@ -55,6 +55,22 @@ Your interface should be up and runnig on http://localhost.com:3000 while Json-S
 
 Access [http://localhost.com:3000](http://localhost.com:3000)
 
+### Authentication
+
+> **Username:** mvtorres
+
+> **Password:** 123
+
+### Project Decisions
+- Use of useContext() to manage shared states between components instead of Redux due to the low complexity of the project.
+
+- Use of in-line styling due to the deadline. With a longer time, it would use preprocessors like SASS, which would make the code cleaner.
+
+- Minimum data processing possible on the front-end. Data should be provided from the back-end (json-server) in its final form, in order to consumption by the interface.
+
+-- **Disclaimer**: This decision can result in inconsistent information on the work-hours data, thats is cause de json-server doesn't really process the data. In a real API, everything should work fine.
+
+
 All Set!
 
 ![alt tag](https://github.com/MateusVT/Work-Hours-Manager/blob/master/public/imgs/login.jpg)
