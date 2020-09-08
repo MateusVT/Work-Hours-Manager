@@ -1,5 +1,4 @@
 type Cookie = "accessToken"
-
 class Cookies {
 	static get(cookie: Cookie) {
 		const value = `; ${document.cookie}`

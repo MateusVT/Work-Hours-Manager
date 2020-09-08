@@ -1,17 +1,17 @@
 import { AppBar, Box, Button, Grid, IconButton, Paper, Toolbar, Typography } from "@material-ui/core";
-import { AlarmOn, LocalCafe } from "@material-ui/icons";
-import { ExitToApp, Work, Menu, QueryBuilder } from '@material-ui/icons';
+import { AlarmOn, ExitToApp, LocalCafe, Menu, QueryBuilder, Work } from "@material-ui/icons";
 import last from "array-last";
 import React, { useContext, useState } from "react";
 import { ComponentContext } from "../../shared/ComponentContext";
-import { ActivityRecord } from "../../types/Types";
+import { ActivityRecord, DayWorkReport } from "../../types/Types";
 import Clock from "../../utils/Clock";
-import moment from "moment"
 import Image from '../../utils/Image';
+import { loadAbsoluteMoment } from "../../utils/Moment";
 import { useWorkRecords, WorkRecordsProvider } from "../../utils/WorkRecordsProvider";
 import ActivityTable from "./ActivityTable";
+
 import Chart from "./Chart";
-import { nowLocale, loadAbsoluteMoment } from "../../utils/Moment";
+import moment from "moment";
 
 
 
@@ -44,28 +44,26 @@ function UserInfo() {
 function UserHoursReport() {
     const { todayWorkRecords, todayWorkReport } = useWorkRecords()
 
-    let totalWorkedTime = "00:00"
-    if (todayWorkRecords[0]) {
-        console.log(loadAbsoluteMoment(todayWorkRecords[0].time, "HH:mm").format("HH:mm"))
-        console.log(nowLocale().format("HH:mm"))
-        totalWorkedTime = moment.utc(moment.duration(
-            moment().diff(moment(todayWorkRecords[0].time, "HH:mm"))
-        ).asMilliseconds()).format("HH:mm")
-
-    }
     return <Grid container style={{ width: "100%", padding: "10px" }}>
-        <Grid item xs={6}>
+        <Grid item xs={12} lg={4}>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>Started Working</Typography>
             <div style={{ display: "flex", alignItems: "center" }}>
                 <Work style={{ marginRight: "5px" }} />
                 <Typography variant="h6" >{todayWorkRecords[0] ? loadAbsoluteMoment(todayWorkRecords[0].time, "HH:mm").format("LT") : "--:--"}</Typography>
             </div>
         </Grid>
-        <Grid item xs={6} >
-            <Typography variant="h5" style={{ fontWeight: "bold" }}>Today Total Worked Time</Typography>
+        <Grid item xs={12} lg={4}>
+            <Typography variant="h5" style={{ fontWeight: "bold" }}>Total Worked Today</Typography>
             <div style={{ display: "flex", alignItems: "center" }}>
                 <QueryBuilder style={{ marginRight: "5px" }} />
                 <Typography variant="h6" >{todayWorkReport?.totalHoursWorked || "00:00"}</Typography>
+            </div>
+        </Grid>
+        <Grid item xs={12} lg={4}>
+            <Typography variant="h5" style={{ fontWeight: "bold" }}>Missing Hours</Typography>
+            <div style={{ display: "flex", alignItems: "center" }}>
+                <QueryBuilder style={{ marginRight: "5px" }} />
+                <Typography variant="h6" >{"02:00"}</Typography>
             </div>
         </Grid>
     </Grid>
@@ -101,23 +99,23 @@ function Actions() {
     return <Box display="flex" flexDirection="row" flex={2} justifyContent="center" alignItems="flex-end" padding={2}>
         <Button
             variant="contained"
-            disabled={lastWorkRecord && lastWorkRecord.activityType == "Lunch Started"}
+            disabled={lastWorkRecord && lastWorkRecord.activityType === "Lunch Started"}
             style={{ backgroundColor: "#00802b", fontWeight: "bold", width: '170px', marginRight: 5 }}
             title="Check-In"
             endIcon={<AlarmOn />}
-            onClick={lastWorkRecord && lastWorkRecord.activityType == "Arriving" ? handleCheckout : handleCheckin}
+            onClick={lastWorkRecord && lastWorkRecord.activityType === "Arriving" ? handleCheckout : handleCheckin}
         >
-            {lastWorkRecord && lastWorkRecord.activityType == "Arriving" ? "Check-Out" : "Check-In"}
+            {lastWorkRecord && lastWorkRecord.activityType === "Arriving" ? "Check-Out" : "Check-In"}
         </Button>
         <Button
             style={{ width: "170px", backgroundColor: "#fb0e0e", fontWeight: "bold", marginLeft: 5 }}
-            disabled={lastWorkRecord && lastWorkRecord.activityType == "Exiting"}
+            disabled={lastWorkRecord && lastWorkRecord.activityType === "Exiting"}
             variant="contained"
             title="Lunch"
             endIcon={<LocalCafe />}
-            onClick={lastWorkRecord && lastWorkRecord.activityType == "Lunch Started" ? handleLunchFinished : handleLunchStarted}
+            onClick={lastWorkRecord && lastWorkRecord.activityType === "Lunch Started" ? handleLunchFinished : handleLunchStarted}
         >
-            {lastWorkRecord && lastWorkRecord.activityType == "Lunch Started" ? "Stop Lunch" : "Start Lunch"}
+            {lastWorkRecord && lastWorkRecord.activityType === "Lunch Started" ? "Stop Lunch" : "Start Lunch"}
         </Button>
     </Box>
 }
@@ -142,10 +140,52 @@ function HomeToolbar(props: { logout: () => void }) {
 }
 
 
+function ChartMonthlyInvoke() {
+    const { workRecords } = useWorkRecords()
+    const colors = ["red", "blue"]
+    return <Chart<number>
+        fetchColor={type => colors[[10, 20].indexOf(type)]}
+        fetchLegend={type => type.toString()}
+        fetchValue={type => 10}
+        items={[10, 20]}
+        title="Monthly Worked Hours"
+        legendPosition={"bottom"}
+        type={"doughnut"}
+    />
+}
+
+function ChartWeeklyInvoke() {
+    const { weeklyWorkReport } = useWorkRecords()
+    if (!weeklyWorkReport) return <></>
+    const colors = [
+        "#e7ff7b",
+        "#0088d9",
+        "#bff47f",
+        "#ffe9ff",
+        "#bcfa9e",
+        "#496956",
+        "#ffc3ba"
+    ]
+
+    console.log(weeklyWorkReport)
+    return <Chart<DayWorkReport>
+        fetchColor={type => colors[weeklyWorkReport.indexOf(type)]}
+        fetchLegend={type => type.date}
+        // fetchLegend={type => loadAbsoluteMoment(type.date).format("ddd")}
+        fetchValue={type => loadAbsoluteMoment(type.totalHoursWorked, "HH:mm").hours()}
+        items={weeklyWorkReport}
+        title="Weekly Worked Hours"
+        legendPosition={"bottom"}
+        type={"verticalBar"}
+    />
+}
+
+
 export type PropsHome = {
     logout: () => void
 }
 const Home = (props: PropsHome) => {
+
 
     return <WorkRecordsProvider>
         <Box component={"div"} bgcolor="#6c677ba3" style={{ width: '100%', minHeight: '100%', display: 'flex', flexDirection: 'column', flex: 1, height: "100%" }}>
@@ -168,12 +208,12 @@ const Home = (props: PropsHome) => {
                             <Grid container>
                                 <Grid xs={12} md={6} item>
                                     <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
-                                        <Chart />
+                                        <ChartWeeklyInvoke />
                                     </Box>
                                 </Grid>
                                 <Grid xs={12} md={6} item>
                                     <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
-                                        <Chart />
+                                        <ChartMonthlyInvoke />
                                     </Box>
                                 </Grid>
                             </Grid>

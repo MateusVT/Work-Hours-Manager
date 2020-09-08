@@ -1,5 +1,4 @@
 import { TextField } from '@material-ui/core';
-import Popper from "popper.js";
 import * as React from "react";
 
 type Props = {

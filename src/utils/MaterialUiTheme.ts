@@ -11,12 +11,6 @@ const MainTheme = createMuiTheme({
     },
 
     overrides: {
-        // MuiFormHelperText: {
-        //     // root: {
-        //     //     WebkitBoxShadow: "0 0 0 1000px green inset",
-        //     //     color: "red"
-        //     // }
-        // },
         MuiInputLabel: {
             root: {
                 color: "white",

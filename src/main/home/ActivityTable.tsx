@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ArrowDownward, ArrowUpward, LocalCafe } from "@material-ui/icons"
 import CustomTable from '../../shared/CustomTable';
 import { useWorkRecords } from '../../utils/WorkRecordsProvider';

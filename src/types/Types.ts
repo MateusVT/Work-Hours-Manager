@@ -26,11 +26,12 @@ export type ActivityRecord = {
     activityType: ActivityTypes
 }
 
-export type TodayWorkReport = {
+export type DayWorkReport = {
     userId: number
     date: string
     totalHoursWorked: string
 }
+
 
 export type ActivityTypes = "Arriving" | "Exiting" | "Lunch Started" | "Finished Lunch"
 

@@ -23,3 +23,4 @@ function nowLocale() {
 export type Moment = momentjs.Moment
 
 export { loadAbsoluteMoment, loadDuration, loadMoment, now, nowLocale }
+

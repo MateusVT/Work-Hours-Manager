@@ -8,18 +8,11 @@ import { loadAbsoluteMoment, loadMoment, nowLocale } from '../utils/Moment';
 import tableIcons from '../utils/TableIcons';
 import { useWorkRecords } from '../utils/WorkRecordsProvider';
 
-interface TableState {
-    columns: Array<Column<any>>;
-}
-
-
 type TableProps = {
     items: any[]
     columns: Array<Column<any>>
     pageSize: number
     title: string
-    selectedItem?: (id?: any) => void
-    itemAdd?: (item: any) => void
 }
 
 export default function CustomTable(props: TableProps) {
@@ -99,7 +92,7 @@ export default function CustomTable(props: TableProps) {
 
     return (
         <MaterialTable
-        
+
             options={{ pageSize: pageSize }}
             components={{
                 Toolbar: props => (

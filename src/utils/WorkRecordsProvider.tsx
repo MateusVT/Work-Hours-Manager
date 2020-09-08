@@ -1,20 +1,21 @@
+import last from "array-last";
+import { useSnackbar } from 'notistack';
 import React, {
   createContext,
-  useState,
+
   useCallback,
   useContext,
-  useEffect,
+  useEffect, useState
 } from 'react';
-import { ActivityRecord, ActivityTypes, TodayWorkReport } from '../types/Types';
-import Http from './Http';
-import last from "array-last";
 import { ComponentContext } from '../shared/ComponentContext';
-import { nowLocale, Moment, loadMoment } from './Moment';
-import { useSnackbar } from 'notistack';
+import { ActivityRecord, ActivityTypes, DayWorkReport } from '../types/Types';
+import Http from './Http';
+import { Moment, nowLocale } from './Moment';
 
 interface WorkRecordsContext {
   workRecords: ActivityRecord[];
-  todayWorkReport?: TodayWorkReport;
+  todayWorkReport?: DayWorkReport;
+  weeklyWorkReport?: DayWorkReport[];
   todayWorkRecords: ActivityRecord[];
   lastWorkRecord?: ActivityRecord;
   addWorkRecord(activityType: ActivityTypes): void;
@@ -27,7 +28,8 @@ const WorkRecordsProvider: React.FC = ({ children }) => {
   const [workRecords, setWorkRecords] = useState<ActivityRecord[]>([]);
   const [todayWorkRecords, setTodayWorkRecords] = useState<ActivityRecord[]>([]);
   const [lastWorkRecord, setLastWorkRecord] = useState<ActivityRecord>();
-  const [todayWorkReport, setTodayWorkReport] = useState<TodayWorkReport>();
+  const [todayWorkReport, setTodayWorkReport] = useState<DayWorkReport>();
+  const [weeklyWorkReport, setWeeklyWorkReport] = useState<DayWorkReport[]>([]);
   const context = useContext(ComponentContext)
   const { user } = context
   const { enqueueSnackbar } = useSnackbar();
@@ -48,6 +50,20 @@ const WorkRecordsProvider: React.FC = ({ children }) => {
     })
   }
 
+  async function loadLastWeekReport(): Promise<void> {
+    if (!user) return
+    Http.get({
+      path: `/daily-work-report?userId=${user.id}`,
+      onError: (error: string) => {
+        console.log("error", error)
+        enqueueSnackbar('Request Error', { variant: 'error' })
+      },
+      onSuccess: (weeklyReports: DayWorkReport[]) => {
+        setWeeklyWorkReport(weeklyReports.slice(0, 7))
+      }
+    })
+  }
+
   async function loadTodayReport(): Promise<void> {
     if (!user) return
     Http.get({
@@ -56,15 +72,16 @@ const WorkRecordsProvider: React.FC = ({ children }) => {
         console.log("error", error)
         enqueueSnackbar('Request Error', { variant: 'error' })
       },
-      onSuccess: (dailyReport: TodayWorkReport[]) => {
+      onSuccess: (dailyReport: DayWorkReport[]) => {
         setTodayWorkReport(dailyReport[0])
       }
     })
   }
 
   useEffect(() => {
-    loadWorkRecords();
+    loadWorkRecords()
     loadTodayReport()
+    loadLastWeekReport()
   }, []);
 
   const addWorkRecord = useCallback(async (activityType: ActivityTypes) => {
@@ -94,8 +111,8 @@ const WorkRecordsProvider: React.FC = ({ children }) => {
 
 
   const value = React.useMemo(
-    () => ({ addWorkRecord, workRecords, loadWorkRecordsByDate, lastWorkRecord, todayWorkRecords, todayWorkReport }),
-    [workRecords, addWorkRecord, loadWorkRecordsByDate, lastWorkRecord, todayWorkRecords, todayWorkReport],
+    () => ({ addWorkRecord, workRecords, loadWorkRecordsByDate, lastWorkRecord, todayWorkRecords, todayWorkReport, weeklyWorkReport }),
+    [workRecords, addWorkRecord, loadWorkRecordsByDate, lastWorkRecord, todayWorkRecords, todayWorkReport, weeklyWorkReport],
   );
 
   return <WorkRecordsContext.Provider value={value}>{children}</WorkRecordsContext.Provider>;
