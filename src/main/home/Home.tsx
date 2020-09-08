@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Divider, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Box, Button, Divider, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@material-ui/core";
 import { AlarmOn, LocalCafe } from "@material-ui/icons";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MailIcon from '@material-ui/icons/Mail';
@@ -69,10 +69,10 @@ function Actions() {
 
     }
 
-    return <Box display="flex" flexDirection="column" flex={2} justifyContent="space-around" alignItems="center">
+    return <Box display="flex" flexDirection="row" flex={2} justifyContent="center" alignItems="flex-end" padding={3}>
         <Button
             variant="contained"
-            style={{ width: "200px", height: "60px", backgroundColor: "green", marginBottom: 10, fontSize: "18px", fontWeight: "bold" }}
+            style={{ backgroundColor: "green", fontWeight: "bold", width: '150px', marginRight:10 }}
             title="Check-In"
             endIcon={<AlarmOn />}
             onClick={handleCheckin}
@@ -80,7 +80,7 @@ function Actions() {
             {"Check-In"}
         </Button>
         <Button
-            style={{ width: "200px", height: "60px", backgroundColor: "red", fontSize: "18px", fontWeight: "bold" }}
+            style={{ width: "150px", backgroundColor: "red", fontWeight: "bold", marginLeft:10 }}
             variant="contained"
             title="Lunch"
             endIcon={<LocalCafe />}
@@ -207,29 +207,24 @@ export type PropsHomeTeste = {
 const Home = (props: PropsHome) => {
 
     return <WorkRecordsProvider>
-        <Box component={"div"} style={{ width: '100%', minHeight: '100%', display: 'flex', flexDirection: 'row', flex: 1 }}>
+        <Box component={"div"} bgcolor="rgba(0,0,0,0.5)" style={{ width: '100%', minHeight: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <AppBar position="static">
-                <HomeToolbar logout={() => { props.logout() }} />
-                <div style={{ display: 'flex', flex: 1, backgroundColor: "white" }}>
+                
+            <HomeToolbar logout={() => { props.logout() }} />
+            </AppBar>
                     <Grid container style={{ height: '100%' }}>
                         <Grid item xs={12} md={6}>
-                            <Box display="flex" flexDirection="column" height={'100%'} justifyContent={'space-around'} p={5}>
-                                <Box flex={1} display="flex" flexDirection="column" justifyContent="center">
+                            <Box display="flex" flexDirection="column" height={'100%'} justifyContent={'space-around'} m={2}>
+                                <Box component={Paper} margin={1} flex={1} display="flex" flexDirection="column" justifyContent="center">
                                     <UserInfo />
                                 </Box>
-                                <Box flex={1} display="flex" flexDirection="column" justifyContent="center" marginTop={5}>
+                                <Box component={Paper} margin={1} flex={1} display="flex" flexDirection="column" justifyContent="center">
                                     <Box textAlign="center">
                                         <Clock />
                                         <Actions />
                                     </Box>
                                 </Box>
-                                {/* <Box justifyContent="space-around" display="flex" flex={1} flexDirection="column" marginTop={5}>
-                                </Box> */}
-                            </Box>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Box display="flex" flexDirection="column" height={'100%'}>
-                                <Box display="flex" flex={1} p={5}>
+                                <Box component={Paper} margin={1} display="flex" flex={1} p={5}>
                                     <Grid container>
                                         <Grid xs={12} md={6} item>
                                             <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">
@@ -243,14 +238,21 @@ const Home = (props: PropsHome) => {
                                         </Grid>
                                     </Grid>
                                 </Box>
-                                <Box display="flex" flex={1} p={1} flexDirection="column" justifyContent="center">
+                                {/* <Box justifyContent="space-around" display="flex" flex={1} flexDirection="column" marginTop={5}>
+                                </Box> */}
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Box display="flex" flexDirection="column" height={'100%'} m={2}>
+                                <Box display="flex" flex={1} component={Paper} margin={1}>
+                                    <Clock></Clock>
+                                </Box>
+                                <Box display="flex" flex={2} p={1} flexDirection="column" justifyContent="center" component={Paper} margin={1}>
                                     <ActivityTable />
                                 </Box>
                             </Box>
                         </Grid>
                     </Grid>
-                </div>
-            </AppBar>
         </Box>
     </WorkRecordsProvider>
 
