@@ -9,6 +9,8 @@ type Pair<E> = {
 
 type ChartProps<E> = {
 	orderBy?: string
+	min: number,
+	max: number,
 	fetchColor: (item: E, index: number) => ChartColor
 	fetchLegend: (item: E, index: number) => string
 	fetchValue: (item: E, index: number) => number
@@ -26,6 +28,8 @@ function Chart<E>(props: ChartProps<E>) {
 		fetchLegend,
 		fetchValue,
 		items,
+		min,
+		max,
 		onItemSelection,
 		showZeros,
 		title,
@@ -91,6 +95,8 @@ function Chart<E>(props: ChartProps<E>) {
 			title,
 			legendPosition || "bottom",
 			type,
+			min,
+			max,
 			onItemSelection && (index => onItemSelection(pairs[index].key))
 		)
 	}
@@ -110,6 +116,8 @@ function chartOptionsFor(
 	title: string,
 	legendPosition: string,
 	type: string,
+	min: number,
+	max: number,
 	onItemSelection?: (index: number) => void
 ) {
 	const chartOptions: ChartOptions = {
@@ -122,13 +130,20 @@ function chartOptionsFor(
 		layout: {
 			padding: 12
 		},
-
+		scales: {
+			yAxes: [{
+				ticks: {
+					max: min,
+					min: max
+				}
+			}]
+		},
 		legend: {
 			display: type == "pizza" || type == "doughnut",
 			labels: {
 				fontSize: 16
 			},
-			onClick: (_: any, item: any) => onItemSelection && onItemSelection((item as any).index ),
+			onClick: (_: any, item: any) => onItemSelection && onItemSelection((item as any).index),
 			onHover: (event: any) => {
 				const target = event.target as HTMLElement | null
 

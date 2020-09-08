@@ -21,7 +21,7 @@ function UserInfo() {
     return <Box display="flex" flexDirection="row" overflow="hidden">
         <Box overflow="hidden" p={1} >
             <Image
-                src="imgs/avatar.svg"
+                src="imgs/user.svg"
                 width="100%"
                 height="100%"
             />
@@ -128,7 +128,7 @@ function HomeToolbar(props: { logout: () => void }) {
         </IconButton>
 
         <Box component="div" display="flex" width="100%" justifyContent="space-between">
-            <Typography variant="h6" style={{ color: "white" }}>Work Hours Manager</Typography>
+            <Typography variant="h6" style={{ color: "white", width: "200px" }}>Work Hours Manager</Typography>
         </Box>
         <IconButton edge="end" onClick={() => {
             props.logout()
@@ -144,6 +144,8 @@ function ChartMonthlyInvoke() {
     const { workRecords } = useWorkRecords()
     const colors = ["red", "blue"]
     return <Chart<number>
+        min={0}
+        max={100}
         fetchColor={type => colors[[10, 20].indexOf(type)]}
         fetchLegend={type => type.toString()}
         fetchValue={type => 10}
@@ -157,6 +159,7 @@ function ChartMonthlyInvoke() {
 function ChartWeeklyInvoke() {
     const { weeklyWorkReport } = useWorkRecords()
     if (!weeklyWorkReport) return <></>
+
     const colors = [
         "#e7ff7b",
         "#0088d9",
@@ -167,12 +170,12 @@ function ChartWeeklyInvoke() {
         "#ffc3ba"
     ]
 
-    console.log(weeklyWorkReport)
     return <Chart<DayWorkReport>
+        min={0}
+        max={9}
         fetchColor={type => colors[weeklyWorkReport.indexOf(type)]}
-        fetchLegend={type => type.date}
-        // fetchLegend={type => loadAbsoluteMoment(type.date).format("ddd")}
-        fetchValue={type => loadAbsoluteMoment(type.totalHoursWorked, "HH:mm").hours()}
+        fetchLegend={type => loadAbsoluteMoment(type.date).format("ddd")}
+        fetchValue={type => (loadAbsoluteMoment(type.totalHoursWorked, "HH:mm").hours() + (loadAbsoluteMoment(type.totalHoursWorked, "HH:mm").minutes() / 60))}
         items={weeklyWorkReport}
         title="Weekly Worked Hours"
         legendPosition={"bottom"}
@@ -204,7 +207,7 @@ const Home = (props: PropsHome) => {
                                 <Actions />
                             </Box>
                         </Box>
-                        <Box component={Paper} margin={1} display="flex" flex={1} p={5}>
+                        <Box component={Paper} margin={1} display="flex" flex={1} p={4}>
                             <Grid container>
                                 <Grid xs={12} md={6} item>
                                     <Box display="flex" height="100%" justifyContent="center" flexDirection="column" alignItems="center">

@@ -13,28 +13,11 @@ type Props = {
 }
 
 const Guest: React.FC<Props> = ({ login }) => {
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+
     const { enqueueSnackbar } = useSnackbar();
     const context = useContext(ComponentContext);
 
-    function handleLogin(accessToken?: string) {
-        if (username.trim().length > 0 && password.trim().length > 0) {
-            Http.get({
-                path: accessToken ? `/users?accessToken=${Cookies.get("accessToken")}` : `/users?username=${username}&password=${password}`,
-                onError: (error: string) => {
-                    console.log(error)
-                    enqueueSnackbar('Invalid username', { variant: 'error' })
-                },
-                onSuccess: (users: User[]) => {
-                    const user = users[0]
-                    login(user, true)
-                    context.user = user
-                    enqueueSnackbar('Welcome ' + user.name + '!', { variant: 'success' })
-                }
-            })
-        }
-    }
+
 
     function Header() {
         return <>
@@ -47,44 +30,84 @@ const Guest: React.FC<Props> = ({ login }) => {
         </>
     }
 
-    function AuthInputs() {
-        return <>
-            <CustomInput
-                id={"username"}
-                label="Username"
-                key={"username"}
-                required
-                value={username}
-                name={"username"}
-                onChange={(_, value) => { setUsername(value) }}
-                maxLength={100}
-                inputType={"string"}
-                variant="outlined"
-                style={{ display: "flex", margin: "auto" }}
-            />
-            <CustomInput
-                id={"password"}
-                key={"password"}
-                label="Password"
-                required
-                value={password}
-                name={"password"}
-                type={"password"}
-                onChange={(_, value) => {
-                    setPassword(value)
-                }}
-                maxLength={100}
-                inputType={"string"}
-                variant="outlined"
-                style={{ display: "flex", margin: "auto" }}
-                inputProps={{
-                    onKeyPress: (event: any) => {
-                        if (event.key === 'Enter' && password != null && password.trim().length > 0) {
-                            handleLogin();
-                        }
+    function AuthInputs(props: Props) {
+        const [username, setUsername] = useState<string>("");
+        const [password, setPassword] = useState<string>("");
+        const { login } = props
+
+        function handleLogin(accessToken?: string) {
+            if (username.trim().length > 0 && password.trim().length > 0) {
+                Http.get({
+                    path: accessToken ? `/users?accessToken=${Cookies.get("accessToken")}` : `/users?username=${username}&password=${password}`,
+                    onError: (error: string) => {
+                        console.log(error)
+                        enqueueSnackbar('Invalid username', { variant: 'error' })
+                    },
+                    onSuccess: (users: User[]) => {
+                        const user = users[0]
+                        login(user, true)
+                        context.user = user
+                        enqueueSnackbar('Welcome ' + user.name + '!', { variant: 'success' })
                     }
-                }}
-            />
+                })
+            }
+        }
+
+        return <>
+            <Box display="flex" flex={2} flexDirection="column" justifyContent="space-around">
+                <CustomInput
+                    id={"username"}
+                    label="Username"
+                    key={"username"}
+                    required
+                    value={username}
+                    name={"username"}
+                    onChange={(_, value) => { setUsername(value) }}
+                    maxLength={100}
+                    inputType={"string"}
+                    variant="outlined"
+                    style={{ display: "flex", margin: "auto" }}
+                />
+                <CustomInput
+                    id={"password"}
+                    key={"password"}
+                    label="Password"
+                    required
+                    value={password}
+                    name={"password"}
+                    type={"password"}
+                    onChange={(_, value) => {
+                        setPassword(value)
+                    }}
+                    maxLength={100}
+                    inputType={"string"}
+                    variant="outlined"
+                    style={{ display: "flex", margin: "auto" }}
+                    inputProps={{
+                        onKeyPress: (event: any) => {
+                            if (event.key === 'Enter' && password != null && password.trim().length > 0) {
+                                handleLogin();
+                            }
+                        }
+                    }}
+                />
+            </Box>
+            <Box display="flex" flex={1} flexDirection="row" alignItems="center" justifyContent="center">
+                <Button color="primary"
+                    style={{
+                        fontSize: 20,
+                        borderRadius: "5px",
+                        width: "85%",
+                        padding: 15
+                    }}
+                    variant="contained"
+                    onClick={() => {
+                        handleLogin()
+                    }}
+                >
+                    {"Log In"}
+                </Button>
+            </Box>
         </>
     }
 
@@ -103,25 +126,7 @@ const Guest: React.FC<Props> = ({ login }) => {
                     </Box>
                     <Box display="flex" flexDirection="row" flex={3} textAlign="center">
                         <Box display="flex" flex={1} flexDirection="column" justifyContent="space-around" marginBottom={30} padding={1}>
-                            <Box display="flex" flex={2} flexDirection="column" justifyContent="space-around">
-                                <AuthInputs />
-                            </Box>
-                            <Box display="flex" flex={1} flexDirection="row" alignItems="center" justifyContent="center">
-                                <Button color="primary"
-                                    style={{
-                                        fontSize: 20,
-                                        borderRadius: "5px",
-                                        width: "85%",
-                                        padding: 15
-                                    }}
-                                    variant="contained"
-                                    onClick={() => {
-                                        handleLogin()
-                                    }}
-                                >
-                                    {"Log In"}
-                                </Button>
-                            </Box>
+                            <AuthInputs login={login} />
                         </Box>
                     </Box>
                 </Box>
